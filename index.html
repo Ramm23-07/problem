@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Representative Attendance</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     WELCOME PAGE
+===================================================== -->
+
+<section
+    id="welcomePage"
+    class="welcome-page"
+>
+
+    <div class="welcome-card">
+
+        <div class="welcome-icon">
+            📋
+        </div>
+
+
+        <h1>
+            HELP FOR<br>
+            REPRESENTATIVE!!
+        </h1>
+
+
+        <p class="welcome-description">
+
+            Welcome to the Class Attendance
+            Management System.
+
+            <br><br>
+
+            Tap each student's name to mark
+            their attendance.
+
+        </p>
+
+
+        <!-- INSTRUCTIONS -->
+
+        <div class="instructions">
+
+
+            <div class="instruction present-info">
+
+                <span>
+                    1
+                </span>
+
+                <div>
+
+                    <strong>
+                        First Tap
+                    </strong>
+
+                    <small>
+                        Present
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="instruction absent-info">
+
+                <span>
+                    2
+                </span>
+
+                <div>
+
+                    <strong>
+                        Second Tap
+                    </strong>
+
+                    <small>
+                        Absent
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="instruction duty-info">
+
+                <span>
+                    3
+                </span>
+
+                <div>
+
+                    <strong>
+                        Third Tap
+                    </strong>
+
+                    <small>
+                        On Duty
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="instruction reset-info">
+
+                <span>
+                    4
+                </span>
+
+                <div>
+
+                    <strong>
+                        Fourth Tap
+                    </strong>
+
+                    <small>
+                        Reset
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- START -->
+
+        <button
+            id="startBtn"
+            class="start-btn"
+        >
+            START ATTENDANCE
+        </button>
+
+
+        <!-- DEVELOPER -->
+
+        <div class="developer-info">
+
+            <p>
+                Done by
+            </p>
+
+            <strong>
+                RAMMBALAJI G
+            </strong>
+
+            <a
+                href="mailto:info.rammbalaji@gmail.com"
+            >
+                info.rammbalaji@gmail.com
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     ATTENDANCE PAGE
+===================================================== -->
+
+<section
+    id="attendancePage"
+    class="attendance-page hidden"
+>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+
+    <div>
+
+        <h1>
+            Class Attendance
+        </h1>
+
+        <p>
+            Representative Attendance Management
+        </p>
+
+    </div>
+
+
+    <div class="header-buttons">
+
+
+        <button
+            id="historyBtn"
+            class="header-btn"
+        >
+            📜 History
+        </button>
+
+
+        <button
+            id="reloadBtn"
+            class="header-btn"
+        >
+            🔄 Reload
+        </button>
+
+
+        <button
+            id="backBtn"
+            class="header-btn"
+        >
+            🏠 Home
+        </button>
+
+
+    </div>
+
+
+</header>
+
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+
+    <!-- DATE -->
+
+    <section class="date-section">
+
+        <div>
+
+            <span>
+                Today's Attendance
+            </span>
+
+            <h2 id="todayDate">
+            </h2>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats">
+
+
+        <div class="stat-card total">
+
+            <span>
+                Total Students
+            </span>
+
+            <strong id="totalCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card present">
+
+            <span>
+                Present
+            </span>
+
+            <strong id="presentCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card absent">
+
+            <span>
+                Absent
+            </span>
+
+            <strong id="absentCount">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card duty">
+
+            <span>
+                On Duty
+            </span>
+
+            <strong id="dutyCount">
+                0
+            </strong>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- STUDENTS -->
+
+    <section class="student-section">
+
+
+        <div class="section-title">
+
+
+            <div>
+
+                <h2>
+                    Students
+                </h2>
+
+                <p>
+                    Tap the student name to change status
+                </p>
+
+            </div>
+
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search student..."
+            >
+
+
+        </div>
+
+
+
+        <div
+            id="studentList"
+            class="student-list"
+        >
+        </div>
+
+
+    </section>
+
+
+
+    <!-- SAVE + RESET -->
+
+    <section class="save-section">
+
+
+        <button
+            id="saveBtn"
+            class="save-btn"
+        >
+            💾 SAVE ATTENDANCE
+        </button>
+
+
+        <button
+            id="resetBtn"
+            class="reset-btn"
+        >
+            🔄 RESET TODAY
+        </button>
+
+
+        <p>
+
+            Unselected students will automatically
+            be marked as Absent when you save.
+
+        </p>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         ATTENDANCE TABLES
+    ================================================= -->
+
+
+    <section class="attendance-section">
+
+
+        <!-- PRESENT -->
+
+        <div class="attendance-card present-card">
+
+
+            <div class="table-header">
+
+                <div>
+
+                    <h2>
+                        Present
+                    </h2>
+
+                    <span
+                        id="presentTableCount"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="copy-btn"
+                    id="copyPresentBtn"
+                >
+                    📋 Copy
+                </button>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                S.No
+                            </th>
+
+                            <th>
+                                Student Name
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody
+                        id="presentTable"
+                    >
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ABSENT -->
+
+        <div class="attendance-card absent-card">
+
+
+            <div class="table-header">
+
+                <div>
+
+                    <h2>
+                        Absent
+                    </h2>
+
+                    <span
+                        id="absentTableCount"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="copy-btn"
+                    id="copyAbsentBtn"
+                >
+                    📋 Copy
+                </button>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                S.No
+                            </th>
+
+                            <th>
+                                Student Name
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody
+                        id="absentTable"
+                    >
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ON DUTY -->
+
+        <div class="attendance-card duty-card">
+
+
+            <div class="table-header">
+
+                <div>
+
+                    <h2>
+                        On Duty
+                    </h2>
+
+                    <span
+                        id="dutyTableCount"
+                    >
+                        0
+                    </span>
+
+                </div>
+
+
+                <button
+                    class="copy-btn"
+                    id="copyDutyBtn"
+                >
+                    📋 Copy
+                </button>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                S.No
+                            </th>
+
+                            <th>
+                                Student Name
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody
+                        id="dutyTable"
+                    >
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =================================================
+         HISTORY
+    ================================================= -->
+
+    <section
+        id="historySection"
+        class="history-section"
+    >
+
+
+        <div class="history-header">
+
+
+            <div>
+
+                <h2>
+                    📜 Attendance History
+                </h2>
+
+                <p>
+                    Saved attendance for the last 7 days
+                </p>
+
+            </div>
+
+
+            <select id="historyDate">
+
+                <option value="">
+                    Select Date
+                </option>
+
+            </select>
+
+
+        </div>
+
+
+        <div
+            id="historyContent"
+            class="history-content"
+        >
+
+            <p class="history-empty">
+
+                Select a date to view attendance.
+
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+</section>
+
+
+
+<!-- TOAST -->
+
+<div
+    id="toast"
+    class="toast"
+>
+</div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

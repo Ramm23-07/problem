@@ -1,0 +1,1386 @@
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+body {
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f4f7fb;
+
+    color: #1f2937;
+
+}
+
+
+/* =====================================================
+   COMMON
+===================================================== */
+
+.hidden {
+
+    display: none !important;
+
+}
+
+
+/* =====================================================
+   WELCOME PAGE
+===================================================== */
+
+.welcome-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+}
+
+
+.welcome-card {
+
+    width: 100%;
+
+    max-width: 600px;
+
+    padding: 40px;
+
+    background: white;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,0.25);
+
+}
+
+
+.welcome-icon {
+
+    width: 80px;
+
+    height: 80px;
+
+    margin:
+        0 auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border-radius: 50%;
+
+    font-size: 40px;
+
+}
+
+
+.welcome-card h1 {
+
+    color: #1d4ed8;
+
+    font-size: 32px;
+
+    line-height: 1.2;
+
+    margin-bottom: 18px;
+
+}
+
+
+.welcome-description {
+
+    color: #6b7280;
+
+    line-height: 1.6;
+
+    margin-bottom: 25px;
+
+}
+
+
+/* =====================================================
+   INSTRUCTIONS
+===================================================== */
+
+.instructions {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.instruction {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    text-align: left;
+
+}
+
+
+.instruction span {
+
+    width: 35px;
+
+    height: 35px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: white;
+
+    font-weight: bold;
+
+}
+
+
+.instruction strong,
+.instruction small {
+
+    display: block;
+
+}
+
+
+.instruction small {
+
+    margin-top: 3px;
+
+}
+
+
+.present-info {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.absent-info {
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+}
+
+
+.duty-info {
+
+    background: #f3e8ff;
+
+    color: #6b21a8;
+
+}
+
+
+.reset-info {
+
+    background: #e5e7eb;
+
+    color: #374151;
+
+}
+
+
+/* =====================================================
+   START BUTTON
+===================================================== */
+
+.start-btn {
+
+    width: 100%;
+
+    border: none;
+
+    padding: 16px;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+
+.start-btn:hover {
+
+    background: #1d4ed8;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =====================================================
+   DEVELOPER
+===================================================== */
+
+.developer-info {
+
+    margin-top: 25px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid #e5e7eb;
+
+}
+
+
+.developer-info p {
+
+    color: #9ca3af;
+
+    font-size: 13px;
+
+}
+
+
+.developer-info strong {
+
+    display: block;
+
+    margin: 5px 0;
+
+}
+
+
+.developer-info a {
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header {
+
+    width: 100%;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding:
+        18px 5%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+}
+
+
+.header h1 {
+
+    font-size: 27px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.header p {
+
+    font-size: 14px;
+
+    opacity: 0.9;
+
+}
+
+
+.header-buttons {
+
+    display: flex;
+
+    gap: 8px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.header-btn {
+
+    border: none;
+
+    padding:
+        10px 14px;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: #2563eb;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+
+.header-btn:hover {
+
+    background: #eff6ff;
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container {
+
+    width: 90%;
+
+    max-width: 1400px;
+
+    margin: 30px auto;
+
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.date-section {
+
+    background: white;
+
+    padding: 20px;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.08);
+
+}
+
+
+.date-section span {
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+}
+
+
+.date-section h2 {
+
+    margin-top: 5px;
+
+    font-size: 22px;
+
+}
+
+
+/* =====================================================
+   STATISTICS
+===================================================== */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+
+}
+
+
+.stat-card {
+
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.08);
+
+    border-left: 5px solid;
+
+}
+
+
+.stat-card span {
+
+    display: block;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.stat-card strong {
+
+    font-size: 30px;
+
+}
+
+
+.total {
+
+    border-color: #2563eb;
+
+}
+
+
+.present {
+
+    border-color: #16a34a;
+
+}
+
+
+.absent {
+
+    border-color: #dc2626;
+
+}
+
+
+.duty {
+
+    border-color: #9333ea;
+
+}
+
+
+/* =====================================================
+   STUDENT SECTION
+===================================================== */
+
+.student-section {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.08);
+
+    margin-bottom: 20px;
+
+}
+
+
+.section-title {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.section-title h2 {
+
+    margin-bottom: 5px;
+
+}
+
+
+.section-title p {
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+}
+
+
+#searchInput {
+
+    width: 300px;
+
+    padding:
+        12px 15px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    outline: none;
+
+}
+
+
+#searchInput:focus {
+
+    border-color: #2563eb;
+
+}
+
+
+/* =====================================================
+   STUDENT BUTTONS
+===================================================== */
+
+.student-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 10px;
+
+    max-height: 500px;
+
+    overflow-y: auto;
+
+}
+
+
+.student-btn {
+
+    border:
+        1px solid #e5e7eb;
+
+    background: #f9fafb;
+
+    padding: 14px 12px;
+
+    border-radius: 8px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    transition: 0.2s;
+
+}
+
+
+.student-btn:hover {
+
+    border-color: #2563eb;
+
+    background: #eff6ff;
+
+}
+
+
+.student-btn:active {
+
+    transform:
+        scale(0.97);
+
+}
+
+
+/* =====================================================
+   SAVE SECTION
+===================================================== */
+
+.save-section {
+
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.08);
+
+}
+
+
+.save-btn {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #16a34a;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.save-btn:hover {
+
+    background: #15803d;
+
+}
+
+
+.reset-btn {
+
+    width: 100%;
+
+    max-width: 500px;
+
+    margin-top: 10px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #dc2626;
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.reset-btn:hover {
+
+    background: #b91c1c;
+
+}
+
+
+.save-section p {
+
+    margin-top: 10px;
+
+    color: #6b7280;
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   ATTENDANCE TABLES
+===================================================== */
+
+.attendance-section {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+
+}
+
+
+.attendance-card {
+
+    background: white;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.08);
+
+}
+
+
+.table-header {
+
+    padding: 16px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.table-header > div {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.table-header span {
+
+    min-width: 30px;
+
+    height: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: white;
+
+    font-weight: bold;
+
+}
+
+
+.present-card .table-header {
+
+    background: #f0fdf4;
+
+}
+
+
+.present-card .table-header span {
+
+    background: #16a34a;
+
+}
+
+
+.absent-card .table-header {
+
+    background: #fef2f2;
+
+}
+
+
+.absent-card .table-header span {
+
+    background: #dc2626;
+
+}
+
+
+.duty-card .table-header {
+
+    background: #faf5ff;
+
+}
+
+
+.duty-card .table-header span {
+
+    background: #9333ea;
+
+}
+
+
+/* =====================================================
+   COPY BUTTON
+===================================================== */
+
+.copy-btn {
+
+    border: none;
+
+    padding:
+        7px 12px;
+
+    border-radius: 6px;
+
+    background: white;
+
+    border:
+        1px solid #d1d5db;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+}
+
+
+.copy-btn:hover {
+
+    background: #f3f4f6;
+
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-wrapper {
+
+    max-height: 450px;
+
+    overflow-y: auto;
+
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+thead {
+
+    position: sticky;
+
+    top: 0;
+
+    background: #f8fafc;
+
+}
+
+
+th,
+td {
+
+    padding: 12px;
+
+    text-align: left;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+    font-size: 14px;
+
+}
+
+
+td:first-child,
+th:first-child {
+
+    width: 60px;
+
+    text-align: center;
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+.history-section {
+
+    background: white;
+
+    margin-top: 30px;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 3px 12px
+        rgba(0,0,0,0.08);
+
+}
+
+
+.history-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.history-header p {
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    margin-top: 5px;
+
+}
+
+
+#historyDate {
+
+    padding: 12px;
+
+    min-width: 220px;
+
+    border:
+        1px solid #d1d5db;
+
+    border-radius: 8px;
+
+    background: white;
+
+}
+
+
+.history-summary {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.history-box {
+
+    padding: 18px;
+
+    text-align: center;
+
+    border-radius: 10px;
+
+}
+
+
+.history-box strong {
+
+    display: block;
+
+    font-size: 28px;
+
+    margin-top: 5px;
+
+}
+
+
+.history-present {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+}
+
+
+.history-absent {
+
+    background: #fee2e2;
+
+    color: #991b1b;
+
+}
+
+
+.history-duty {
+
+    background: #f3e8ff;
+
+    color: #6b21a8;
+
+}
+
+
+.history-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+}
+
+
+.history-table th,
+.history-table td {
+
+    padding: 12px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
+}
+
+
+.history-empty {
+
+    text-align: center;
+
+    color: #6b7280;
+
+    padding: 30px;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+
+    position: fixed;
+
+    bottom: 25px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        translateY(100px);
+
+    background: #111827;
+
+    color: white;
+
+    padding:
+        14px 22px;
+
+    border-radius: 8px;
+
+    opacity: 0;
+
+    transition: 0.3s;
+
+    z-index: 9999;
+
+}
+
+
+.toast.show {
+
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .student-list {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .attendance-section {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .welcome-card {
+
+        padding:
+            25px 18px;
+
+    }
+
+
+    .welcome-card h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .instructions {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .header {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    .header-buttons {
+
+        width: 100%;
+
+    }
+
+
+    .header-btn {
+
+        flex: 1;
+
+        padding:
+            10px 8px;
+
+        font-size: 12px;
+
+    }
+
+
+    .container {
+
+        width: 94%;
+
+    }
+
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 10px;
+
+    }
+
+
+    .stat-card {
+
+        padding: 16px;
+
+    }
+
+
+    .stat-card strong {
+
+        font-size: 24px;
+
+    }
+
+
+    .student-section {
+
+        padding: 16px;
+
+    }
+
+
+    .section-title {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    #searchInput {
+
+        width: 100%;
+
+    }
+
+
+    .student-list {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .history-section {
+
+        padding: 16px;
+
+    }
+
+
+    .history-header {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+
+    #historyDate {
+
+        width: 100%;
+
+    }
+
+
+    .history-summary {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .table-wrapper {
+
+        max-height: 400px;
+
+        overflow-x: auto;
+
+    }
+
+}
