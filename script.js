@@ -1,5 +1,5 @@
 // =====================================================
-// STUDENTS
+// STUDENT LIST
 // =====================================================
 
 const students = [
@@ -70,7 +70,7 @@ const students = [
 
 
 // =====================================================
-// STORAGE
+// LOCAL STORAGE KEY
 // =====================================================
 
 const STORAGE_KEY =
@@ -78,19 +78,21 @@ const STORAGE_KEY =
 
 
 // =====================================================
-// STATUS
+// ATTENDANCE STATUS
 // =====================================================
-
-// 0 = Unselected
+//
+// 0 = Not Marked
 // 1 = Present
 // 2 = Absent
 // 3 = On Duty
+//
+// =====================================================
 
 let attendance = {};
 
 
 // =====================================================
-// DOM
+// DOM ELEMENTS
 // =====================================================
 
 const welcomePage =
@@ -98,55 +100,66 @@ const welcomePage =
         "welcomePage"
     );
 
+
 const attendancePage =
     document.getElementById(
         "attendancePage"
     );
+
 
 const startBtn =
     document.getElementById(
         "startBtn"
     );
 
+
 const backBtn =
     document.getElementById(
         "backBtn"
     );
+
 
 const reloadBtn =
     document.getElementById(
         "reloadBtn"
     );
 
+
 const historyBtn =
     document.getElementById(
         "historyBtn"
     );
+
 
 const saveBtn =
     document.getElementById(
         "saveBtn"
     );
 
+
 const resetBtn =
     document.getElementById(
         "resetBtn"
     );
+
 
 const searchInput =
     document.getElementById(
         "searchInput"
     );
 
+
 const historyDate =
     document.getElementById(
         "historyDate"
     );
 
+
 const historySection =
     document.getElementById(
         "historySection"
     );
+
 
 const toast =
     document.getElementById(
@@ -155,7 +168,7 @@ const toast =
 
 
 // =====================================================
-// DATE KEY
+// GET TODAY KEY
 // =====================================================
 
 function getTodayKey() {
@@ -163,18 +176,28 @@ function getTodayKey() {
     const date =
         new Date();
 
+
     const year =
         date.getFullYear();
+
 
     const month =
         String(
             date.getMonth() + 1
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     const day =
         String(
             date.getDate()
-        ).padStart(2, "0");
+        ).padStart(
+            2,
+            "0"
+        );
+
 
     return `${year}-${month}-${day}`;
 
@@ -192,6 +215,7 @@ function formatDate(dateKey) {
             dateKey +
             "T00:00:00"
         );
+
 
     return date.toLocaleDateString(
         "en-IN",
@@ -246,12 +270,13 @@ function saveHistory(history) {
 
 
 // =====================================================
-// EMPTY ATTENDANCE
+// CREATE EMPTY ATTENDANCE
 // =====================================================
 
 function createEmptyAttendance() {
 
     const data = {};
+
 
     students.forEach(
         student => {
@@ -261,19 +286,21 @@ function createEmptyAttendance() {
         }
     );
 
+
     return data;
 
 }
 
 
 // =====================================================
-// LOAD TODAY
+// LOAD TODAY'S ATTENDANCE
 // =====================================================
 
 function loadTodayAttendance() {
 
     const history =
         getHistory();
+
 
     const today =
         getTodayKey();
@@ -294,13 +321,14 @@ function loadTodayAttendance() {
 
 
 // =====================================================
-// DELETE HISTORY OLDER THAN 7 DAYS
+// REMOVE HISTORY OLDER THAN 7 DAYS
 // =====================================================
 
 function cleanOldHistory() {
 
     const history =
         getHistory();
+
 
     const today =
         new Date(
@@ -309,41 +337,40 @@ function cleanOldHistory() {
         );
 
 
-    Object.keys(history)
-        .forEach(
-            dateKey => {
+    Object.keys(history).forEach(
+        dateKey => {
 
-                const savedDate =
-                    new Date(
-                        dateKey +
-                        "T00:00:00"
-                    );
-
-
-                const difference =
-                    today - savedDate;
+            const savedDate =
+                new Date(
+                    dateKey +
+                    "T00:00:00"
+                );
 
 
-                const daysOld =
-                    difference /
-                    (
-                        1000 *
-                        60 *
-                        60 *
-                        24
-                    );
+            const difference =
+                today - savedDate;
 
 
-                if (daysOld >= 7) {
+            const daysOld =
+                difference /
+                (
+                    1000 *
+                    60 *
+                    60 *
+                    24
+                );
 
-                    delete history[
-                        dateKey
-                    ];
 
-                }
+            if (daysOld >= 7) {
+
+                delete history[
+                    dateKey
+                ];
 
             }
-        );
+
+        }
+    );
 
 
     saveHistory(history);
@@ -352,7 +379,7 @@ function cleanOldHistory() {
 
 
 // =====================================================
-// START BUTTON
+// START ATTENDANCE
 // =====================================================
 
 startBtn.addEventListener(
@@ -362,6 +389,7 @@ startBtn.addEventListener(
         welcomePage.classList.add(
             "hidden"
         );
+
 
         attendancePage.classList.remove(
             "hidden"
@@ -374,7 +402,9 @@ startBtn.addEventListener(
 
         renderStudents();
 
+
         renderTables();
+
 
         loadHistoryDates();
 
@@ -383,7 +413,7 @@ startBtn.addEventListener(
 
 
 // =====================================================
-// HOME BUTTON
+// HOME
 // =====================================================
 
 backBtn.addEventListener(
@@ -394,6 +424,7 @@ backBtn.addEventListener(
             "hidden"
         );
 
+
         welcomePage.classList.remove(
             "hidden"
         );
@@ -403,23 +434,17 @@ backBtn.addEventListener(
 
 
 // =====================================================
-// RELOAD BUTTON
+// RELOAD
+// =====================================================
+//
+// Reloading the page does NOT delete localStorage.
+// Therefore history remains.
+//
 // =====================================================
 
 reloadBtn.addEventListener(
     "click",
     () => {
-
-        /*
-        IMPORTANT:
-
-        window.location.reload()
-        ONLY reloads the page.
-
-        It does NOT delete localStorage.
-
-        Therefore history remains safe.
-        */
 
         window.location.reload();
 
@@ -428,7 +453,7 @@ reloadBtn.addEventListener(
 
 
 // =====================================================
-// TODAY DATE
+// DISPLAY TODAY
 // =====================================================
 
 document.getElementById(
@@ -476,13 +501,62 @@ function renderStudents(
                 );
 
 
+            /*
+            Base class
+            */
+
             button.className =
                 "student-btn";
 
 
+            /*
+            Student name
+            */
+
             button.textContent =
                 student;
 
+
+            /*
+            Current status
+            */
+
+            const status =
+                attendance[student] || 0;
+
+
+            /*
+            Add color class
+            */
+
+            if (status === 1) {
+
+                button.classList.add(
+                    "present"
+                );
+
+            }
+
+            else if (status === 2) {
+
+                button.classList.add(
+                    "absent"
+                );
+
+            }
+
+            else if (status === 3) {
+
+                button.classList.add(
+                    "duty"
+                );
+
+            }
+
+
+            /*
+            Click student
+            */
 
             button.addEventListener(
                 "click",
@@ -506,8 +580,11 @@ function renderStudents(
 
     if (filtered.length === 0) {
 
-        list.innerHTML =
-            "<p>No student found.</p>";
+        list.innerHTML = `
+            <p class="history-empty">
+                No student found.
+            </p>
+        `;
 
     }
 
@@ -520,14 +597,29 @@ function renderStudents(
 
 function markStudent(student) {
 
-    attendance[student]++;
+    /*
+        Current status
+    */
+
+    const currentStatus =
+        attendance[student] || 0;
 
 
     /*
-    1st tap = Present
-    2nd tap = Absent
-    3rd tap = On Duty
-    4th tap = Reset
+        Increase click count
+
+        0 → 1 Present
+        1 → 2 Absent
+        2 → 3 On Duty
+        3 → 0 Reset
+    */
+
+    attendance[student] =
+        currentStatus + 1;
+
+
+    /*
+        Reset after 3rd click
     */
 
     if (
@@ -538,6 +630,23 @@ function markStudent(student) {
 
     }
 
+
+    /*
+        IMPORTANT:
+        Re-render student buttons.
+
+        This changes the color
+        immediately.
+    */
+
+    renderStudents(
+        searchInput.value
+    );
+
+
+    /*
+        Update tables
+    */
 
     renderTables();
 
@@ -569,12 +678,18 @@ function renderTables() {
     const present =
         getStudentsByStatus(1);
 
+
     const absent =
         getStudentsByStatus(2);
+
 
     const duty =
         getStudentsByStatus(3);
 
+
+    /*
+        Fill tables
+    */
 
     fillTable(
         "presentTable",
@@ -593,6 +708,10 @@ function renderTables() {
         duty
     );
 
+
+    /*
+        Statistics
+    */
 
     document.getElementById(
         "totalCount"
@@ -617,6 +736,10 @@ function renderTables() {
     ).textContent =
         duty.length;
 
+
+    /*
+        Table counts
+    */
 
     document.getElementById(
         "presentTableCount"
@@ -690,8 +813,43 @@ saveBtn.addEventListener(
     () => {
 
         /*
-        Any student who is still
-        unselected becomes ABSENT.
+        Find unmarked students.
+        */
+
+        const unmarked =
+            students.filter(
+                student =>
+                    attendance[student] === 0
+            );
+
+
+        /*
+        If there are unmarked students,
+        tell representative.
+        */
+
+        if (
+            unmarked.length > 0
+        ) {
+
+            const confirmSave =
+                confirm(
+                    `${unmarked.length} student(s) are not marked.\n\nThey will automatically be marked as ABSENT.\n\nDo you want to continue?`
+                );
+
+
+            if (!confirmSave) {
+
+                return;
+
+            }
+
+        }
+
+
+        /*
+        Automatically mark
+        unselected students as absent.
         */
 
         students.forEach(
@@ -709,6 +867,10 @@ saveBtn.addEventListener(
         );
 
 
+        /*
+        Get history
+        */
+
         const history =
             getHistory();
 
@@ -718,7 +880,7 @@ saveBtn.addEventListener(
 
 
         /*
-        Save today's final data.
+        Save today's attendance
         */
 
         history[today] = {
@@ -726,28 +888,35 @@ saveBtn.addEventListener(
         };
 
 
+        /*
+        Store in localStorage
+        */
+
         saveHistory(history);
 
 
         /*
-        Refresh everything.
+        Update screen
         */
+
+        renderStudents(
+            searchInput.value
+        );
+
 
         renderTables();
 
+
         loadHistoryDates();
 
-
-        /*
-        Automatically select today's
-        date in history.
-        */
 
         historyDate.value =
             today;
 
 
-        showHistory(today);
+        showHistory(
+            today
+        );
 
 
         showToast(
@@ -780,7 +949,7 @@ resetBtn.addEventListener(
 
 
         /*
-        Reset current attendance.
+        Reset all students
         */
 
         attendance =
@@ -788,7 +957,7 @@ resetBtn.addEventListener(
 
 
         /*
-        Remove today's saved history.
+        Remove today's history
         */
 
         const history =
@@ -799,25 +968,38 @@ resetBtn.addEventListener(
             getTodayKey();
 
 
-        delete history[today];
+        delete history[
+            today
+        ];
 
 
-        saveHistory(history);
+        saveHistory(
+            history
+        );
 
 
         /*
-        Refresh page data.
+        Refresh UI
         */
 
+        renderStudents(
+            searchInput.value
+        );
+
+
         renderTables();
+
 
         loadHistoryDates();
 
 
-        historyDate.value = "";
+        historyDate.value =
+            "";
 
 
-        showHistory("");
+        showHistory(
+            ""
+        );
 
 
         showToast(
@@ -848,7 +1030,9 @@ searchInput.addEventListener(
 // COPY NAMES
 // =====================================================
 
-async function copyNames(status) {
+async function copyNames(
+    status
+) {
 
     const names =
         getStudentsByStatus(
@@ -870,17 +1054,19 @@ async function copyNames(status) {
 
 
     /*
-    One student per line.
+    One name per line
     */
 
     const text =
-        names.join("\n");
+        names.join(
+            "\n"
+        );
 
 
     try {
 
         /*
-        Modern Clipboard API.
+        Clipboard API
         */
 
         await navigator.clipboard.writeText(
@@ -889,7 +1075,7 @@ async function copyNames(status) {
 
 
         showToast(
-            "📋 Copied to clipboard!"
+            "📋 Names copied to clipboard!"
         );
 
     }
@@ -897,9 +1083,7 @@ async function copyNames(status) {
     catch (error) {
 
         /*
-        Fallback for browsers
-        where Clipboard API
-        is unavailable.
+        Fallback
         */
 
         const textarea =
@@ -915,6 +1099,7 @@ async function copyNames(status) {
         textarea.style.position =
             "fixed";
 
+
         textarea.style.left =
             "-9999px";
 
@@ -925,6 +1110,7 @@ async function copyNames(status) {
 
 
         textarea.focus();
+
 
         textarea.select();
 
@@ -937,7 +1123,7 @@ async function copyNames(status) {
 
 
             showToast(
-                "📋 Copied to clipboard!"
+                "📋 Names copied to clipboard!"
             );
 
         }
@@ -961,7 +1147,7 @@ async function copyNames(status) {
 
 
 // =====================================================
-// COPY BUTTONS
+// COPY PRESENT
 // =====================================================
 
 document.getElementById(
@@ -976,6 +1162,10 @@ document.getElementById(
 );
 
 
+// =====================================================
+// COPY ABSENT
+// =====================================================
+
 document.getElementById(
     "copyAbsentBtn"
 ).addEventListener(
@@ -987,6 +1177,10 @@ document.getElementById(
     }
 );
 
+
+// =====================================================
+// COPY ON DUTY
+// =====================================================
 
 document.getElementById(
     "copyDutyBtn"
@@ -1110,7 +1304,9 @@ function showHistory(
                 data[student] === 1
             ) {
 
-                present.push(student);
+                present.push(
+                    student
+                );
 
             }
 
@@ -1118,7 +1314,9 @@ function showHistory(
                 data[student] === 2
             ) {
 
-                absent.push(student);
+                absent.push(
+                    student
+                );
 
             }
 
@@ -1126,7 +1324,9 @@ function showHistory(
                 data[student] === 3
             ) {
 
-                duty.push(student);
+                duty.push(
+                    student
+                );
 
             }
 
@@ -1147,7 +1347,8 @@ function showHistory(
 
 
             <div
-                class="history-box history-present"
+                class="history-box
+                history-present"
             >
 
                 <span>
@@ -1162,7 +1363,8 @@ function showHistory(
 
 
             <div
-                class="history-box history-absent"
+                class="history-box
+                history-absent"
             >
 
                 <span>
@@ -1177,7 +1379,8 @@ function showHistory(
 
 
             <div
-                class="history-box history-duty"
+                class="history-box
+                history-duty"
             >
 
                 <span>
@@ -1195,7 +1398,6 @@ function showHistory(
 
 
         <table class="history-table">
-
 
             <thead>
 
@@ -1237,7 +1439,6 @@ function showHistory(
 
             </tbody>
 
-
         </table>
 
     `;
@@ -1246,7 +1447,7 @@ function showHistory(
 
 
 // =====================================================
-// HISTORY ROWS
+// CREATE HISTORY ROWS
 // =====================================================
 
 function createHistoryRows(
@@ -1316,10 +1517,12 @@ historyBtn.addEventListener(
 
 
 // =====================================================
-// TOAST
+// TOAST MESSAGE
 // =====================================================
 
-function showToast(message) {
+function showToast(
+    message
+) {
 
     toast.textContent =
         message;

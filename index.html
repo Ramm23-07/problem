@@ -38,12 +38,10 @@
             📋
         </div>
 
-
         <h1>
             HELP FOR<br>
             REPRESENTATIVE!!
         </h1>
-
 
         <p class="welcome-description">
 
@@ -62,12 +60,9 @@
 
         <div class="instructions">
 
-
             <div class="instruction present-info">
 
-                <span>
-                    1
-                </span>
+                <span>1</span>
 
                 <div>
 
@@ -86,9 +81,7 @@
 
             <div class="instruction absent-info">
 
-                <span>
-                    2
-                </span>
+                <span>2</span>
 
                 <div>
 
@@ -107,9 +100,7 @@
 
             <div class="instruction duty-info">
 
-                <span>
-                    3
-                </span>
+                <span>3</span>
 
                 <div>
 
@@ -128,9 +119,7 @@
 
             <div class="instruction reset-info">
 
-                <span>
-                    4
-                </span>
+                <span>4</span>
 
                 <div>
 
@@ -146,11 +135,8 @@
 
             </div>
 
-
         </div>
 
-
-        <!-- START -->
 
         <button
             id="startBtn"
@@ -159,8 +145,6 @@
             START ATTENDANCE
         </button>
 
-
-        <!-- DEVELOPER -->
 
         <div class="developer-info">
 
@@ -172,14 +156,11 @@
                 RAMMBALAJI G
             </strong>
 
-            <a
-                href="mailto:info.rammbalaji@gmail.com"
-            >
+            <a href="mailto:info.rammbalaji@gmail.com">
                 info.rammbalaji@gmail.com
             </a>
 
         </div>
-
 
     </div>
 
@@ -201,7 +182,6 @@
 
 <header class="header">
 
-
     <div>
 
         <h1>
@@ -216,7 +196,6 @@
 
 
     <div class="header-buttons">
-
 
         <button
             id="historyBtn"
@@ -241,9 +220,7 @@
             🏠 Home
         </button>
 
-
     </div>
-
 
 </header>
 
@@ -264,8 +241,7 @@
                 Today's Attendance
             </span>
 
-            <h2 id="todayDate">
-            </h2>
+            <h2 id="todayDate"></h2>
 
         </div>
 
@@ -329,7 +305,6 @@
 
         </div>
 
-
     </section>
 
 
@@ -341,7 +316,6 @@
 
         <div class="section-title">
 
-
             <div>
 
                 <h2>
@@ -349,7 +323,7 @@
                 </h2>
 
                 <p>
-                    Tap the student name to change status
+                    Tap the name to change attendance status
                 </p>
 
             </div>
@@ -358,13 +332,38 @@
             <input
                 type="text"
                 id="searchInput"
-                placeholder="Search student..."
+                placeholder="🔍 Search student..."
             >
-
 
         </div>
 
 
+
+        <!-- STATUS LEGEND -->
+
+        <div class="legend">
+
+            <span class="legend-item">
+                ⚪ Not Marked
+            </span>
+
+            <span class="legend-item present-legend">
+                🟢 Present
+            </span>
+
+            <span class="legend-item absent-legend">
+                🔴 Absent
+            </span>
+
+            <span class="legend-item duty-legend">
+                🟣 On Duty
+            </span>
+
+        </div>
+
+
+
+        <!-- STUDENTS -->
 
         <div
             id="studentList"
@@ -372,12 +371,11 @@
         >
         </div>
 
-
     </section>
 
 
 
-    <!-- SAVE + RESET -->
+    <!-- SAVE / RESET -->
 
     <section class="save-section">
 
@@ -405,7 +403,6 @@
 
         </p>
 
-
     </section>
 
 
@@ -414,14 +411,12 @@
          ATTENDANCE TABLES
     ================================================= -->
 
-
     <section class="attendance-section">
 
 
         <!-- PRESENT -->
 
         <div class="attendance-card present-card">
-
 
             <div class="table-header">
 
@@ -431,9 +426,7 @@
                         Present
                     </h2>
 
-                    <span
-                        id="presentTableCount"
-                    >
+                    <span id="presentTableCount">
                         0
                     </span>
 
@@ -471,15 +464,12 @@
                     </thead>
 
 
-                    <tbody
-                        id="presentTable"
-                    >
+                    <tbody id="presentTable">
                     </tbody>
 
                 </table>
 
             </div>
-
 
         </div>
 
@@ -489,7 +479,6 @@
 
         <div class="attendance-card absent-card">
 
-
             <div class="table-header">
 
                 <div>
@@ -498,9 +487,7 @@
                         Absent
                     </h2>
 
-                    <span
-                        id="absentTableCount"
-                    >
+                    <span id="absentTableCount">
                         0
                     </span>
 
@@ -538,15 +525,12 @@
                     </thead>
 
 
-                    <tbody
-                        id="absentTable"
-                    >
+                    <tbody id="absentTable">
                     </tbody>
 
                 </table>
 
             </div>
-
 
         </div>
 
@@ -556,7 +540,6 @@
 
         <div class="attendance-card duty-card">
 
-
             <div class="table-header">
 
                 <div>
@@ -565,9 +548,7 @@
                         On Duty
                     </h2>
 
-                    <span
-                        id="dutyTableCount"
-                    >
+                    <span id="dutyTableCount">
                         0
                     </span>
 
@@ -605,15 +586,12 @@
                     </thead>
 
 
-                    <tbody
-                        id="dutyTable"
-                    >
+                    <tbody id="dutyTable">
                     </tbody>
 
                 </table>
 
             </div>
-
 
         </div>
 
@@ -631,9 +609,7 @@
         class="history-section"
     >
 
-
         <div class="history-header">
-
 
             <div>
 
@@ -656,7 +632,6 @@
 
             </select>
 
-
         </div>
 
 
@@ -666,19 +641,15 @@
         >
 
             <p class="history-empty">
-
                 Select a date to view attendance.
-
             </p>
 
         </div>
-
 
     </section>
 
 
 </main>
-
 
 </section>
 
