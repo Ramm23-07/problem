@@ -978,13 +978,27 @@ async function copyNames(status) {
         getCopyDate();
 
 
+    // =================================================
+    // TITLE TO BE COPIED EVERY TIME
+    // =================================================
+
+    const title =
+        "COMPUTER SCIENCE BUSINESS SYSTEM 3RD YEAR";
+
+
     let text = "";
 
+
+    // =================================================
+    // COPY PRESENT
+    // =================================================
 
     if (status === 1) {
 
         text =
-`${date}
+`${title}
+
+${date}
 
 PRESENT ${present.length}
 ${present.length > 0
@@ -994,10 +1008,16 @@ ${present.length > 0
     }
 
 
+    // =================================================
+    // COPY ABSENT
+    // =================================================
+
     else if (status === 2) {
 
         text =
-`${date}
+`${title}
+
+${date}
 
 ABSENT ${absent.length}
 ${absent.length > 0
@@ -1007,10 +1027,16 @@ ${absent.length > 0
     }
 
 
+    // =================================================
+    // COPY OD
+    // =================================================
+
     else if (status === 3) {
 
         text =
-`${date}
+`${title}
+
+${date}
 
 OD ${duty.length}
 ${duty.length > 0
@@ -1030,13 +1056,16 @@ ${duty.length > 0
 
 // =====================================================
 // COPY ALL ATTENDANCE
+//
+// ONLY ABSENT + OD
+//
+// PRESENT WILL NOT BE COPIED
+//
+// IF THERE IS NO OD,
+// OD SECTION WILL NOT BE COPIED
 // =====================================================
 
 async function copyAllAttendance() {
-
-    const present =
-        getStudentsByStatus(1);
-
 
     const absent =
         getStudentsByStatus(2);
@@ -1050,18 +1079,18 @@ async function copyAllAttendance() {
         getCopyDate();
 
 
-    const text =
-`${date}
+    const title =
+        "COMPUTER SCIENCE BUSINESS SYSTEM 3RD YEAR";
 
-PRESENT ${present.length}
-${present.length > 0
-    ? present.join("\n")
-    : "No students"}
 
-OD ${duty.length}
-${duty.length > 0
-    ? duty.join("\n")
-    : "No students"}
+    // =================================================
+    // START WITH TITLE + DATE + ABSENT
+    // =================================================
+
+    let text =
+`${title}
+
+${date}
 
 ABSENT ${absent.length}
 ${absent.length > 0
@@ -1069,9 +1098,24 @@ ${absent.length > 0
     : "No students"}`;
 
 
+    // =================================================
+    // ADD OD ONLY IF OD EXISTS
+    // =================================================
+
+    if (duty.length > 0) {
+
+        text +=
+`
+
+OD ${duty.length}
+${duty.join("\n")}`;
+
+    }
+
+
     await copyToClipboard(
         text,
-        "📋 Entire attendance copied!"
+        "📋 Attendance copied!"
     );
 
 }
