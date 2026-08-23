@@ -70,7 +70,7 @@ const students = [
 
 
 // =====================================================
-// LOCAL STORAGE
+// STORAGE
 // =====================================================
 
 const STORAGE_KEY =
@@ -220,7 +220,7 @@ function formatDate(dateKey) {
 
 
 // =====================================================
-// FORMAT DATE FOR COPY
+// DATE FOR COPY
 // DD/MM/YYYY
 // =====================================================
 
@@ -320,7 +320,7 @@ function createEmptyAttendance() {
 
 
 // =====================================================
-// LOAD TODAY ATTENDANCE
+// LOAD TODAY
 // =====================================================
 
 function loadTodayAttendance() {
@@ -348,8 +348,8 @@ function loadTodayAttendance() {
 
 
 // =====================================================
-// CLEAN HISTORY
-// ONLY LAST 7 DAYS
+// CLEAN OLD HISTORY
+// KEEP LAST 7 DAYS
 // =====================================================
 
 function cleanOldHistory() {
@@ -407,7 +407,7 @@ function cleanOldHistory() {
 
 
 // =====================================================
-// START ATTENDANCE
+// START
 // =====================================================
 
 startBtn.addEventListener(
@@ -597,10 +597,10 @@ function renderStudents(
 // =====================================================
 // MARK STUDENT
 //
-// 0 -> 1 Present
-// 1 -> 2 Absent
-// 2 -> 3 OD
-// 3 -> 0 Reset
+// 1st click = PRESENT
+// 2nd click = ABSENT
+// 3rd click = OD
+// 4th click = RESET
 // =====================================================
 
 function markStudent(student) {
@@ -806,7 +806,7 @@ saveBtn.addEventListener(
 
 
         // Automatically mark
-        // unselected students absent
+        // unselected as absent
 
         students.forEach(
             student => {
@@ -957,15 +957,7 @@ searchInput.addEventListener(
 
 
 // =====================================================
-// COPY ATTENDANCE
-//
-// Example:
-//
-// 23/08/2026
-//
-// PRESENT 25
-// STUDENT 1
-// STUDENT 2
+// COPY INDIVIDUAL
 // =====================================================
 
 async function copyNames(status) {
@@ -989,10 +981,6 @@ async function copyNames(status) {
     let text = "";
 
 
-    // =================================================
-    // PRESENT
-    // =================================================
-
     if (status === 1) {
 
         text =
@@ -1005,10 +993,6 @@ ${present.length > 0
 
     }
 
-
-    // =================================================
-    // ABSENT
-    // =================================================
 
     else if (status === 2) {
 
@@ -1023,10 +1007,6 @@ ${absent.length > 0
     }
 
 
-    // =================================================
-    // ON DUTY
-    // =================================================
-
     else if (status === 3) {
 
         text =
@@ -1040,9 +1020,71 @@ ${duty.length > 0
     }
 
 
-    // =================================================
-    // COPY TO CLIPBOARD
-    // =================================================
+    await copyToClipboard(
+        text,
+        "📋 Copied to clipboard!"
+    );
+
+}
+
+
+// =====================================================
+// COPY ALL ATTENDANCE
+// =====================================================
+
+async function copyAllAttendance() {
+
+    const present =
+        getStudentsByStatus(1);
+
+
+    const absent =
+        getStudentsByStatus(2);
+
+
+    const duty =
+        getStudentsByStatus(3);
+
+
+    const date =
+        getCopyDate();
+
+
+    const text =
+`${date}
+
+PRESENT ${present.length}
+${present.length > 0
+    ? present.join("\n")
+    : "No students"}
+
+OD ${duty.length}
+${duty.length > 0
+    ? duty.join("\n")
+    : "No students"}
+
+ABSENT ${absent.length}
+${absent.length > 0
+    ? absent.join("\n")
+    : "No students"}`;
+
+
+    await copyToClipboard(
+        text,
+        "📋 Entire attendance copied!"
+    );
+
+}
+
+
+// =====================================================
+// COMMON CLIPBOARD FUNCTION
+// =====================================================
+
+async function copyToClipboard(
+    text,
+    successMessage
+) {
 
     try {
 
@@ -1052,14 +1094,15 @@ ${duty.length > 0
 
 
         showToast(
-            "📋 Copied to clipboard!"
+            successMessage
         );
 
     }
 
     catch (error) {
 
-        // Fallback
+        // Fallback for browsers
+        // that don't support Clipboard API
 
         const textarea =
             document.createElement(
@@ -1079,13 +1122,16 @@ ${duty.length > 0
             "-9999px";
 
 
+        textarea.style.top =
+            "0";
+
+
         document.body.appendChild(
             textarea
         );
 
 
         textarea.focus();
-
 
         textarea.select();
 
@@ -1098,7 +1144,7 @@ ${duty.length > 0
 
 
             showToast(
-                "📋 Copied to clipboard!"
+                successMessage
             );
 
         }
@@ -1122,7 +1168,7 @@ ${duty.length > 0
 
 
 // =====================================================
-// COPY PRESENT
+// INDIVIDUAL COPY BUTTONS
 // =====================================================
 
 document.getElementById(
@@ -1137,10 +1183,6 @@ document.getElementById(
 );
 
 
-// =====================================================
-// COPY ABSENT
-// =====================================================
-
 document.getElementById(
     "copyAbsentBtn"
 ).addEventListener(
@@ -1153,10 +1195,6 @@ document.getElementById(
 );
 
 
-// =====================================================
-// COPY OD
-// =====================================================
-
 document.getElementById(
     "copyDutyBtn"
 ).addEventListener(
@@ -1164,6 +1202,22 @@ document.getElementById(
     () => {
 
         copyNames(3);
+
+    }
+);
+
+
+// =====================================================
+// COPY ALL BUTTON
+// =====================================================
+
+document.getElementById(
+    "copyAllBtn"
+).addEventListener(
+    "click",
+    () => {
+
+        copyAllAttendance();
 
     }
 );

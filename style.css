@@ -10,6 +10,7 @@
 
 
 body {
+
     font-family:
         Arial,
         Helvetica,
@@ -74,6 +75,7 @@ body {
 .welcome-icon {
 
     width: 80px;
+
     height: 80px;
 
     margin:
@@ -151,6 +153,7 @@ body {
 .instruction span {
 
     width: 35px;
+
     height: 35px;
 
     flex-shrink: 0;
@@ -171,41 +174,51 @@ body {
 
 .instruction strong,
 .instruction small {
+
     display: block;
 }
 
 
 .instruction small {
+
     margin-top: 3px;
 }
 
 
 .present-info {
+
     background: #dcfce7;
+
     color: #166534;
 }
 
 
 .absent-info {
+
     background: #fee2e2;
+
     color: #991b1b;
 }
 
 
 .duty-info {
+
     background: #f3e8ff;
+
     color: #6b21a8;
 }
 
 
 .reset-info {
+
     background: #e5e7eb;
+
     color: #374151;
 }
 
 
 /* =====================================================
-   START
+   START BUTTON
 ===================================================== */
 
 .start-btn {
@@ -257,7 +270,9 @@ body {
 
 
 .developer-info p {
+
     color: #9ca3af;
+
     font-size: 13px;
 }
 
@@ -457,32 +472,37 @@ body {
 
 
 .stat-card strong {
+
     font-size: 30px;
 }
 
 
 .total {
+
     border-color: #2563eb;
 }
 
 
 .present {
+
     border-color: #16a34a;
 }
 
 
 .absent {
+
     border-color: #dc2626;
 }
 
 
 .duty {
+
     border-color: #9333ea;
 }
 
 
 /* =====================================================
-   STUDENTS
+   STUDENT SECTION
 ===================================================== */
 
 .student-section {
@@ -516,6 +536,7 @@ body {
 
 
 .section-title h2 {
+
     margin-bottom: 5px;
 }
 
@@ -850,6 +871,65 @@ body {
 }
 
 
+/* =====================================================
+   COPY ALL
+===================================================== */
+
+.copy-all-container {
+
+    grid-column: 1 / -1;
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    margin-bottom: -5px;
+}
+
+
+.copy-all-btn {
+
+    border: none;
+
+    padding:
+        13px 20px;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.copy-all-btn:hover {
+
+    background: #1d4ed8;
+
+    transform:
+        translateY(-1px);
+}
+
+
+.copy-all-btn:active {
+
+    transform:
+        scale(0.97);
+}
+
+
+/* =====================================================
+   ATTENDANCE CARD
+===================================================== */
+
 .attendance-card {
 
     background: white;
@@ -907,37 +987,43 @@ body {
 
 
 .present-card .table-header {
+
     background: #f0fdf4;
 }
 
 
 .present-card .table-header span {
+
     background: #16a34a;
 }
 
 
 .absent-card .table-header {
+
     background: #fef2f2;
 }
 
 
 .absent-card .table-header span {
+
     background: #dc2626;
 }
 
 
 .duty-card .table-header {
+
     background: #faf5ff;
 }
 
 
 .duty-card .table-header span {
+
     background: #9333ea;
 }
 
 
 /* =====================================================
-   COPY
+   COPY BUTTON
 ===================================================== */
 
 .copy-btn {
@@ -1346,6 +1432,18 @@ th:first-child {
     .legend-item {
 
         font-size: 12px;
+    }
+
+
+    .copy-all-container {
+
+        justify-content: stretch;
+    }
+
+
+    .copy-all-btn {
+
+        width: 100%;
     }
 
 
