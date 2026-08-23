@@ -81,7 +81,7 @@ let attendance = {};
 
 
 // =====================================================
-// DOM
+// DOM ELEMENTS
 // =====================================================
 
 const welcomePage =
@@ -157,7 +157,7 @@ const toast =
 
 
 // =====================================================
-// TODAY KEY
+// GET TODAY KEY
 // =====================================================
 
 function getTodayKey() {
@@ -220,7 +220,45 @@ function formatDate(dateKey) {
 
 
 // =====================================================
-// HISTORY
+// FORMAT DATE FOR COPY
+// DD/MM/YYYY
+// =====================================================
+
+function getCopyDate() {
+
+    const date =
+        new Date();
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const year =
+        date.getFullYear();
+
+
+    return `${day}/${month}/${year}`;
+
+}
+
+
+// =====================================================
+// GET HISTORY
 // =====================================================
 
 function getHistory() {
@@ -244,6 +282,10 @@ function getHistory() {
 }
 
 
+// =====================================================
+// SAVE HISTORY
+// =====================================================
+
 function saveHistory(history) {
 
     localStorage.setItem(
@@ -255,7 +297,7 @@ function saveHistory(history) {
 
 
 // =====================================================
-// EMPTY ATTENDANCE
+// CREATE EMPTY ATTENDANCE
 // =====================================================
 
 function createEmptyAttendance() {
@@ -278,7 +320,7 @@ function createEmptyAttendance() {
 
 
 // =====================================================
-// LOAD TODAY
+// LOAD TODAY ATTENDANCE
 // =====================================================
 
 function loadTodayAttendance() {
@@ -307,7 +349,7 @@ function loadTodayAttendance() {
 
 // =====================================================
 // CLEAN HISTORY
-// Keep only last 7 days
+// ONLY LAST 7 DAYS
 // =====================================================
 
 function cleanOldHistory() {
@@ -365,7 +407,7 @@ function cleanOldHistory() {
 
 
 // =====================================================
-// START
+// START ATTENDANCE
 // =====================================================
 
 startBtn.addEventListener(
@@ -492,12 +534,6 @@ function renderStudents(
                 attendance[student] || 0;
 
 
-            /*
-                1 = Present
-                2 = Absent
-                3 = OD
-            */
-
             if (status === 1) {
 
                 button.classList.add(
@@ -560,6 +596,11 @@ function renderStudents(
 
 // =====================================================
 // MARK STUDENT
+//
+// 0 -> 1 Present
+// 1 -> 2 Absent
+// 2 -> 3 OD
+// 3 -> 0 Reset
 // =====================================================
 
 function markStudent(student) {
@@ -567,13 +608,6 @@ function markStudent(student) {
     const currentStatus =
         attendance[student] || 0;
 
-
-    /*
-        0 → 1 Present
-        1 → 2 Absent
-        2 → 3 OD
-        3 → 0 Reset
-    */
 
     attendance[student] =
         currentStatus + 1;
@@ -599,7 +633,7 @@ function markStudent(student) {
 
 
 // =====================================================
-// GET STATUS LIST
+// GET STUDENTS BY STATUS
 // =====================================================
 
 function getStudentsByStatus(
@@ -771,10 +805,8 @@ saveBtn.addEventListener(
         }
 
 
-        /*
-        Automatically mark
-        unselected students absent.
-        */
+        // Automatically mark
+        // unselected students absent
 
         students.forEach(
             student => {
@@ -925,14 +957,18 @@ searchInput.addEventListener(
 
 
 // =====================================================
-// COPY ATTENDANCE LIST
+// COPY ATTENDANCE
+//
+// Example:
+//
+// 23/08/2026
+//
+// PRESENT 25
+// STUDENT 1
+// STUDENT 2
 // =====================================================
 
 async function copyNames(status) {
-
-    /*
-        Get all three lists
-    */
 
     const present =
         getStudentsByStatus(1);
@@ -946,6 +982,10 @@ async function copyNames(status) {
         getStudentsByStatus(3);
 
 
+    const date =
+        getCopyDate();
+
+
     let text = "";
 
 
@@ -956,7 +996,9 @@ async function copyNames(status) {
     if (status === 1) {
 
         text =
-`PRESENT (${present.length})
+`${date}
+
+PRESENT ${present.length}
 ${present.length > 0
     ? present.join("\n")
     : "No students"}`;
@@ -971,7 +1013,9 @@ ${present.length > 0
     else if (status === 2) {
 
         text =
-`ABSENT (${absent.length})
+`${date}
+
+ABSENT ${absent.length}
 ${absent.length > 0
     ? absent.join("\n")
     : "No students"}`;
@@ -986,7 +1030,9 @@ ${absent.length > 0
     else if (status === 3) {
 
         text =
-`OD (${duty.length})
+`${date}
+
+OD ${duty.length}
 ${duty.length > 0
     ? duty.join("\n")
     : "No students"}`;
@@ -1013,11 +1059,7 @@ ${duty.length > 0
 
     catch (error) {
 
-        /*
-            Fallback for browsers
-            where Clipboard API
-            is unavailable.
-        */
+        // Fallback
 
         const textarea =
             document.createElement(
@@ -1380,7 +1422,7 @@ function showHistory(
 
 
 // =====================================================
-// HISTORY ROWS
+// CREATE HISTORY ROWS
 // =====================================================
 
 function createHistoryRows(
@@ -1418,7 +1460,7 @@ function createHistoryRows(
 
 
 // =====================================================
-// HISTORY DATE
+// HISTORY DATE CHANGE
 // =====================================================
 
 historyDate.addEventListener(
