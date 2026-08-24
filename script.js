@@ -69,6 +69,7 @@ const students = [
 ];
 
 
+
 // =====================================================
 // STORAGE
 // =====================================================
@@ -77,6 +78,7 @@ const STORAGE_KEY =
     "rammbalaji_attendance_history";
 
 let attendance = {};
+
 
 
 // =====================================================
@@ -120,13 +122,15 @@ const toast =
     document.getElementById("toast");
 
 
+
 // =====================================================
 // GET TODAY KEY
 // =====================================================
 
 function getTodayKey() {
 
-    const date = new Date();
+    const date =
+        new Date();
 
     const year =
         date.getFullYear();
@@ -142,7 +146,9 @@ function getTodayKey() {
         ).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
+
 }
+
 
 
 // =====================================================
@@ -165,7 +171,9 @@ function formatDate(dateKey) {
             year: "numeric"
         }
     );
+
 }
+
 
 
 // =====================================================
@@ -174,7 +182,8 @@ function formatDate(dateKey) {
 
 function getCopyDate() {
 
-    const date = new Date();
+    const date =
+        new Date();
 
     const day =
         String(
@@ -190,7 +199,9 @@ function getCopyDate() {
         date.getFullYear();
 
     return `${day}/${month}/${year}`;
+
 }
+
 
 
 // =====================================================
@@ -212,7 +223,9 @@ function getHistory() {
         return {};
 
     }
+
 }
+
 
 
 // =====================================================
@@ -225,7 +238,9 @@ function saveHistory(history) {
         STORAGE_KEY,
         JSON.stringify(history)
     );
+
 }
+
 
 
 // =====================================================
@@ -245,11 +260,13 @@ function createEmptyAttendance() {
     );
 
     return data;
+
 }
 
 
+
 // =====================================================
-// LOAD TODAY
+// LOAD TODAY ATTENDANCE
 // =====================================================
 
 function loadTodayAttendance() {
@@ -269,12 +286,14 @@ function loadTodayAttendance() {
     }
 
     return createEmptyAttendance();
+
 }
 
 
+
 // =====================================================
-// CLEAN OLD HISTORY
-// LAST 7 DAYS
+// CLEAN HISTORY
+// KEEP LAST 7 DAYS
 // =====================================================
 
 function cleanOldHistory() {
@@ -321,11 +340,13 @@ function cleanOldHistory() {
     );
 
     saveHistory(history);
+
 }
 
 
+
 // =====================================================
-// START
+// START ATTENDANCE
 // =====================================================
 
 startBtn.addEventListener(
@@ -353,6 +374,7 @@ startBtn.addEventListener(
 );
 
 
+
 // =====================================================
 // HOME
 // =====================================================
@@ -373,6 +395,7 @@ backBtn.addEventListener(
 );
 
 
+
 // =====================================================
 // RELOAD
 // =====================================================
@@ -387,6 +410,7 @@ reloadBtn.addEventListener(
 );
 
 
+
 // =====================================================
 // TODAY DATE
 // =====================================================
@@ -397,6 +421,7 @@ document.getElementById(
     formatDate(
         getTodayKey()
     );
+
 
 
 // =====================================================
@@ -422,6 +447,7 @@ function renderStudents(search = "") {
                     )
         );
 
+
     filtered.forEach(
         student => {
 
@@ -436,8 +462,10 @@ function renderStudents(search = "") {
             button.textContent =
                 student;
 
+
             const status =
                 attendance[student] || 0;
+
 
             if (status === 1) {
 
@@ -445,19 +473,24 @@ function renderStudents(search = "") {
                     "present"
                 );
 
-            } else if (status === 2) {
+            }
+
+            else if (status === 2) {
 
                 button.classList.add(
                     "absent"
                 );
 
-            } else if (status === 3) {
+            }
+
+            else if (status === 3) {
 
                 button.classList.add(
                     "duty"
                 );
 
             }
+
 
             button.addEventListener(
                 "click",
@@ -470,12 +503,14 @@ function renderStudents(search = "") {
                 }
             );
 
+
             list.appendChild(
                 button
             );
 
         }
     );
+
 
     if (filtered.length === 0) {
 
@@ -488,16 +523,19 @@ function renderStudents(search = "") {
         `;
 
     }
+
 }
+
 
 
 // =====================================================
 // MARK STUDENT
 //
+// 0 = NOT MARKED
 // 1 = PRESENT
 // 2 = ABSENT
 // 3 = OD
-// 4 = RESET
+// 4th TAP = RESET
 // =====================================================
 
 function markStudent(student) {
@@ -505,8 +543,10 @@ function markStudent(student) {
     const currentStatus =
         attendance[student] || 0;
 
+
     attendance[student] =
         currentStatus + 1;
+
 
     if (
         attendance[student] > 3
@@ -516,12 +556,15 @@ function markStudent(student) {
 
     }
 
+
     renderStudents(
         searchInput.value
     );
 
     renderTables();
+
 }
+
 
 
 // =====================================================
@@ -536,6 +579,7 @@ function getStudentsByStatus(status) {
     );
 
 }
+
 
 
 // =====================================================
@@ -553,6 +597,7 @@ function renderTables() {
     const duty =
         getStudentsByStatus(3);
 
+
     fillTable(
         "presentTable",
         present
@@ -568,41 +613,50 @@ function renderTables() {
         duty
     );
 
+
     document.getElementById(
         "totalCount"
     ).textContent =
         students.length;
+
 
     document.getElementById(
         "presentCount"
     ).textContent =
         present.length;
 
+
     document.getElementById(
         "absentCount"
     ).textContent =
         absent.length;
+
 
     document.getElementById(
         "dutyCount"
     ).textContent =
         duty.length;
 
+
     document.getElementById(
         "presentTableCount"
     ).textContent =
         present.length;
+
 
     document.getElementById(
         "absentTableCount"
     ).textContent =
         absent.length;
 
+
     document.getElementById(
         "dutyTableCount"
     ).textContent =
         duty.length;
+
 }
+
 
 
 // =====================================================
@@ -620,6 +674,7 @@ function fillTable(
         );
 
     table.innerHTML = "";
+
 
     names.forEach(
         (name, index) => {
@@ -642,7 +697,9 @@ function fillTable(
 
         }
     );
+
 }
+
 
 
 // =====================================================
@@ -659,6 +716,7 @@ saveBtn.addEventListener(
                     attendance[student] === 0
             );
 
+
         if (
             unmarked.length > 0
         ) {
@@ -668,6 +726,7 @@ saveBtn.addEventListener(
                     `${unmarked.length} student(s) are not marked.\n\nThey will automatically be marked as ABSENT.\n\nDo you want to continue?`
                 );
 
+
             if (!confirmSave) {
 
                 return;
@@ -675,6 +734,10 @@ saveBtn.addEventListener(
             }
 
         }
+
+
+        // Automatically mark
+        // unselected students absent
 
         students.forEach(
             student => {
@@ -690,17 +753,21 @@ saveBtn.addEventListener(
             }
         );
 
+
         const history =
             getHistory();
 
         const today =
             getTodayKey();
 
+
         history[today] = {
             ...attendance
         };
 
+
         saveHistory(history);
+
 
         renderStudents(
             searchInput.value
@@ -710,10 +777,13 @@ saveBtn.addEventListener(
 
         loadHistoryDates();
 
+
         historyDate.value =
             today;
 
+
         showHistory(today);
+
 
         showToast(
             "✅ Attendance saved successfully!"
@@ -721,6 +791,7 @@ saveBtn.addEventListener(
 
     }
 );
+
 
 
 // =====================================================
@@ -736,14 +807,17 @@ resetBtn.addEventListener(
                 "Are you sure you want to reset today's attendance?"
             );
 
+
         if (!confirmReset) {
 
             return;
 
         }
 
+
         attendance =
             createEmptyAttendance();
+
 
         const history =
             getHistory();
@@ -751,9 +825,12 @@ resetBtn.addEventListener(
         const today =
             getTodayKey();
 
+
         delete history[today];
 
+
         saveHistory(history);
+
 
         renderStudents(
             searchInput.value
@@ -763,9 +840,11 @@ resetBtn.addEventListener(
 
         loadHistoryDates();
 
+
         historyDate.value = "";
 
         showHistory("");
+
 
         showToast(
             "🔄 Today's attendance has been reset."
@@ -773,6 +852,7 @@ resetBtn.addEventListener(
 
     }
 );
+
 
 
 // =====================================================
@@ -791,20 +871,18 @@ searchInput.addEventListener(
 );
 
 
+
 // =====================================================
-// COPY INDIVIDUAL
+// COPY INDIVIDUAL ATTENDANCE
 //
-// FORMAT:
-//
-// ABSENT-count
-// name
-// name
-//
+// PRESENT:
 // PRESENT-count
-// name
 //
+// ABSENT:
+// ABSENT-count
+//
+// OD:
 // OD-count
-// name
 // =====================================================
 
 async function copyNames(status) {
@@ -821,12 +899,14 @@ async function copyNames(status) {
     const date =
         getCopyDate();
 
+
     let text = "";
 
 
-    // ================================================
+
+    // =================================================
     // ABSENT
-    // ================================================
+    // =================================================
 
     if (status === 2) {
 
@@ -834,6 +914,7 @@ async function copyNames(status) {
 `${date}
 
 ABSENT-${absent.length}`;
+
 
         if (absent.length > 0) {
 
@@ -846,9 +927,10 @@ ABSENT-${absent.length}`;
     }
 
 
-    // ================================================
+
+    // =================================================
     // PRESENT
-    // ================================================
+    // =================================================
 
     else if (status === 1) {
 
@@ -856,6 +938,7 @@ ABSENT-${absent.length}`;
 `${date}
 
 PRESENT-${present.length}`;
+
 
         if (present.length > 0) {
 
@@ -868,9 +951,10 @@ PRESENT-${present.length}`;
     }
 
 
-    // ================================================
+
+    // =================================================
     // OD
-    // ================================================
+    // =================================================
 
     else if (status === 3) {
 
@@ -878,6 +962,7 @@ PRESENT-${present.length}`;
 `${date}
 
 OD-${duty.length}`;
+
 
         if (duty.length > 0) {
 
@@ -898,15 +983,18 @@ OD-${duty.length}`;
 }
 
 
+
 // =====================================================
 // COPY ALL ATTENDANCE
 //
+// IMPORTANT:
+//
 // COPY ALL = ABSENT + OD ONLY
 //
-// PRESENT IS NOT INCLUDED
+// PRESENT IS NOT INCLUDED.
 //
 // IF OD = 0,
-// OD SECTION IS NOT COPIED
+// OD SECTION WILL NOT BE COPIED.
 // =====================================================
 
 async function copyAllAttendance() {
@@ -921,14 +1009,15 @@ async function copyAllAttendance() {
         getCopyDate();
 
 
-    // ================================================
+    // =================================================
     // ABSENT
-    // ================================================
+    // =================================================
 
     let text =
 `${date}
 
 ABSENT-${absent.length}`;
+
 
     if (absent.length > 0) {
 
@@ -939,10 +1028,11 @@ ABSENT-${absent.length}`;
     }
 
 
-    // ================================================
+
+    // =================================================
     // OD
-    // ONLY IF OD EXISTS
-    // ================================================
+    // ONLY IF OD STUDENTS EXIST
+    // =================================================
 
     if (duty.length > 0) {
 
@@ -963,8 +1053,9 @@ ${duty.join("\n")}`;
 }
 
 
+
 // =====================================================
-// COMMON CLIPBOARD FUNCTION
+// CLIPBOARD FUNCTION
 // =====================================================
 
 async function copyToClipboard(
@@ -982,32 +1073,41 @@ async function copyToClipboard(
             successMessage
         );
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         const textarea =
             document.createElement(
                 "textarea"
             );
 
+
         textarea.value =
             text;
+
 
         textarea.style.position =
             "fixed";
 
+
         textarea.style.left =
             "-9999px";
 
+
         textarea.style.top =
             "0";
+
 
         document.body.appendChild(
             textarea
         );
 
+
         textarea.focus();
 
         textarea.select();
+
 
         try {
 
@@ -1015,17 +1115,21 @@ async function copyToClipboard(
                 "copy"
             );
 
+
             showToast(
                 successMessage
             );
 
-        } catch (copyError) {
+        }
+
+        catch (copyError) {
 
             showToast(
                 "❌ Copy failed!"
             );
 
         }
+
 
         document.body.removeChild(
             textarea
@@ -1036,8 +1140,9 @@ async function copyToClipboard(
 }
 
 
+
 // =====================================================
-// INDIVIDUAL COPY BUTTONS
+// COPY PRESENT
 // =====================================================
 
 document.getElementById(
@@ -1052,6 +1157,11 @@ document.getElementById(
 );
 
 
+
+// =====================================================
+// COPY ABSENT
+// =====================================================
+
 document.getElementById(
     "copyAbsentBtn"
 ).addEventListener(
@@ -1063,6 +1173,11 @@ document.getElementById(
     }
 );
 
+
+
+// =====================================================
+// COPY OD
+// =====================================================
 
 document.getElementById(
     "copyDutyBtn"
@@ -1076,8 +1191,9 @@ document.getElementById(
 );
 
 
+
 // =====================================================
-// COPY ALL BUTTON
+// COPY ALL
 // =====================================================
 
 document.getElementById(
@@ -1092,6 +1208,7 @@ document.getElementById(
 );
 
 
+
 // =====================================================
 // LOAD HISTORY DATES
 // =====================================================
@@ -1101,6 +1218,7 @@ function loadHistoryDates() {
     const history =
         getHistory();
 
+
     historyDate.innerHTML = `
 
         <option value="">
@@ -1109,10 +1227,12 @@ function loadHistoryDates() {
 
     `;
 
+
     const dates =
         Object.keys(history)
             .sort()
             .reverse();
+
 
     dates.forEach(
         dateKey => {
@@ -1122,13 +1242,16 @@ function loadHistoryDates() {
                     "option"
                 );
 
+
             option.value =
                 dateKey;
+
 
             option.textContent =
                 formatDate(
                     dateKey
                 );
+
 
             historyDate.appendChild(
                 option
@@ -1136,7 +1259,9 @@ function loadHistoryDates() {
 
         }
     );
+
 }
+
 
 
 // =====================================================
@@ -1148,10 +1273,12 @@ function showHistory(dateKey) {
     const history =
         getHistory();
 
+
     const content =
         document.getElementById(
             "historyContent"
         );
+
 
     if (
         !dateKey ||
@@ -1170,8 +1297,10 @@ function showHistory(dateKey) {
 
     }
 
+
     const data =
         history[dateKey];
+
 
     const present = [];
 
@@ -1191,7 +1320,9 @@ function showHistory(dateKey) {
                     student
                 );
 
-            } else if (
+            }
+
+            else if (
                 data[student] === 2
             ) {
 
@@ -1199,7 +1330,9 @@ function showHistory(dateKey) {
                     student
                 );
 
-            } else if (
+            }
+
+            else if (
                 data[student] === 3
             ) {
 
@@ -1221,7 +1354,9 @@ function showHistory(dateKey) {
 
         <br>
 
+
         <div class="history-summary">
+
 
             <div class="history-box history-present">
 
@@ -1235,6 +1370,7 @@ function showHistory(dateKey) {
 
             </div>
 
+
             <div class="history-box history-absent">
 
                 <span>
@@ -1246,6 +1382,7 @@ function showHistory(dateKey) {
                 </strong>
 
             </div>
+
 
             <div class="history-box history-duty">
 
@@ -1259,9 +1396,12 @@ function showHistory(dateKey) {
 
             </div>
 
+
         </div>
 
+
         <table class="history-table">
+
 
             <thead>
 
@@ -1283,6 +1423,7 @@ function showHistory(dateKey) {
 
             </thead>
 
+
             <tbody>
 
                 ${createHistoryRows(
@@ -1302,6 +1443,7 @@ function showHistory(dateKey) {
 
             </tbody>
 
+
         </table>
 
     `;
@@ -1309,8 +1451,9 @@ function showHistory(dateKey) {
 }
 
 
+
 // =====================================================
-// CREATE HISTORY ROWS
+// HISTORY ROWS
 // =====================================================
 
 function createHistoryRows(
@@ -1347,6 +1490,7 @@ function createHistoryRows(
 }
 
 
+
 // =====================================================
 // HISTORY DATE CHANGE
 // =====================================================
@@ -1361,6 +1505,7 @@ historyDate.addEventListener(
 
     }
 );
+
 
 
 // =====================================================
@@ -1379,6 +1524,7 @@ historyBtn.addEventListener(
 );
 
 
+
 // =====================================================
 // TOAST
 // =====================================================
@@ -1388,9 +1534,11 @@ function showToast(message) {
     toast.textContent =
         message;
 
+
     toast.classList.add(
         "show"
     );
+
 
     setTimeout(
         () => {
@@ -1404,6 +1552,7 @@ function showToast(message) {
     );
 
 }
+
 
 
 // =====================================================
