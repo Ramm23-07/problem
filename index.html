@@ -2,34 +2,23 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <title>Representative Attendance</title>
+    <title>III CSBS - Attendance</title>
 
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-
+<body">
 
 <!-- =====================================================
      WELCOME PAGE
 ===================================================== -->
 
-<section
-    id="welcomePage"
-    class="welcome-page"
->
+<section id="welcomePage" class="welcome-page">
 
     <div class="welcome-card">
 
@@ -42,78 +31,58 @@
             REPRESENTATIVE!!
         </h1>
 
-        <p class="welcome-description">
+        <h2 class="department-short">
+            III CSBS
+        </h2>
 
+        <p class="welcome-description">
+            COMPUTER SCIENCE AND BUSINESS SYSTEMS
+            <br>
+            III YEAR
+            <br><br>
             Welcome to the Class Attendance
             Management System.
-
-            <br><br>
-
-            Tap each student's name to mark
-            their attendance.
-
         </p>
-
 
         <div class="instructions">
 
             <div class="instruction present-info">
-
                 <span>1</span>
-
                 <div>
                     <strong>First Tap</strong>
                     <small>Present</small>
                 </div>
-
             </div>
 
-
             <div class="instruction absent-info">
-
                 <span>2</span>
-
                 <div>
                     <strong>Second Tap</strong>
                     <small>Absent</small>
                 </div>
-
             </div>
 
-
             <div class="instruction duty-info">
-
                 <span>3</span>
-
                 <div>
                     <strong>Third Tap</strong>
                     <small>On Duty</small>
                 </div>
-
             </div>
 
-
             <div class="instruction reset-info">
-
                 <span>4</span>
-
                 <div>
                     <strong>Fourth Tap</strong>
                     <small>Reset</small>
                 </div>
-
             </div>
 
         </div>
 
-
-        <button
-            id="startBtn"
-            class="start-btn"
-        >
+        <button id="startBtn" class="start-btn">
             START ATTENDANCE
         </button>
-
 
         <div class="developer-info">
 
@@ -134,65 +103,52 @@
 </section>
 
 
-
 <!-- =====================================================
      ATTENDANCE PAGE
 ===================================================== -->
 
-<section
-    id="attendancePage"
-    class="attendance-page hidden"
->
+<section id="attendancePage"
+         class="attendance-page hidden">
 
 
 <!-- =====================================================
-     HEADER
+     HEADER / MENU BAR
 ===================================================== -->
 
 <header class="header">
 
-    <div>
+    <div class="header-title">
 
         <h1>
-            Class Attendance
+            III CSBS
         </h1>
 
         <p>
-            Representative Attendance Management
+            COMPUTER SCIENCE AND BUSINESS SYSTEMS III YEAR
         </p>
 
     </div>
 
-
     <div class="header-buttons">
 
-        <button
-            id="historyBtn"
-            class="header-btn"
-        >
+        <button id="historyBtn"
+                class="header-btn">
             📜 History
         </button>
 
-
-        <button
-            id="reloadBtn"
-            class="header-btn"
-        >
+        <button id="reloadBtn"
+                class="header-btn">
             🔄 Reload
         </button>
 
-
-        <button
-            id="backBtn"
-            class="header-btn"
-        >
+        <button id="backBtn"
+                class="header-btn">
             🏠 Home
         </button>
 
     </div>
 
 </header>
-
 
 
 <!-- =====================================================
@@ -219,7 +175,6 @@
     </section>
 
 
-
     <!-- =================================================
          STATISTICS
     ================================================= -->
@@ -238,7 +193,6 @@
 
         </div>
 
-
         <div class="stat-card present">
 
             <span>
@@ -251,7 +205,6 @@
 
         </div>
 
-
         <div class="stat-card absent">
 
             <span>
@@ -263,7 +216,6 @@
             </strong>
 
         </div>
-
 
         <div class="stat-card duty">
 
@@ -280,20 +232,18 @@
     </section>
 
 
-
     <!-- =================================================
          STUDENT SECTION
     ================================================= -->
 
     <section class="student-section">
 
-
         <div class="section-title">
 
             <div>
 
                 <h2>
-                    Students
+                    III CSBS Students
                 </h2>
 
                 <p>
@@ -302,7 +252,6 @@
 
             </div>
 
-
             <input
                 type="text"
                 id="searchInput"
@@ -310,7 +259,6 @@
             >
 
         </div>
-
 
 
         <!-- LEGEND -->
@@ -336,17 +284,13 @@
         </div>
 
 
-
         <!-- STUDENT LIST -->
 
-        <div
-            id="studentList"
-            class="student-list"
-        >
+        <div id="studentList"
+             class="student-list">
         </div>
 
     </section>
-
 
 
     <!-- =================================================
@@ -355,32 +299,22 @@
 
     <section class="save-section">
 
-
-        <button
-            id="saveBtn"
-            class="save-btn"
-        >
+        <button id="saveBtn"
+                class="save-btn">
             💾 SAVE ATTENDANCE
         </button>
 
-
-        <button
-            id="resetBtn"
-            class="reset-btn"
-        >
+        <button id="resetBtn"
+                class="reset-btn">
             🔄 RESET TODAY
         </button>
 
-
         <p>
-
             Unselected students will automatically
             be marked as Absent when you save.
-
         </p>
 
     </section>
-
 
 
     <!-- =================================================
@@ -390,26 +324,21 @@
     <section class="attendance-section">
 
 
-        <!-- =================================================
-             COPY ALL BUTTON
-        ================================================= -->
+        <!-- COPY ALL -->
 
         <div class="copy-all-container">
 
-            <button
-                id="copyAllBtn"
-                class="copy-all-btn"
-            >
+            <button id="copyAllBtn"
+                    class="copy-all-btn">
+
                 📋 COPY ALL ATTENDANCE
+
             </button>
 
         </div>
 
 
-
-        <!-- =================================================
-             PRESENT
-        ================================================= -->
+        <!-- PRESENT -->
 
         <div class="attendance-card present-card">
 
@@ -427,16 +356,14 @@
 
                 </div>
 
+                <button id="copyPresentBtn"
+                        class="copy-btn">
 
-                <button
-                    class="copy-btn"
-                    id="copyPresentBtn"
-                >
                     📋 Copy
+
                 </button>
 
             </div>
-
 
             <div class="table-wrapper">
 
@@ -458,7 +385,6 @@
 
                     </thead>
 
-
                     <tbody id="presentTable">
                     </tbody>
 
@@ -469,10 +395,7 @@
         </div>
 
 
-
-        <!-- =================================================
-             ABSENT
-        ================================================= -->
+        <!-- ABSENT -->
 
         <div class="attendance-card absent-card">
 
@@ -490,16 +413,14 @@
 
                 </div>
 
+                <button id="copyAbsentBtn"
+                        class="copy-btn">
 
-                <button
-                    class="copy-btn"
-                    id="copyAbsentBtn"
-                >
                     📋 Copy
+
                 </button>
 
             </div>
-
 
             <div class="table-wrapper">
 
@@ -521,7 +442,6 @@
 
                     </thead>
 
-
                     <tbody id="absentTable">
                     </tbody>
 
@@ -532,10 +452,7 @@
         </div>
 
 
-
-        <!-- =================================================
-             ON DUTY
-        ================================================= -->
+        <!-- ON DUTY -->
 
         <div class="attendance-card duty-card">
 
@@ -553,16 +470,14 @@
 
                 </div>
 
+                <button id="copyDutyBtn"
+                        class="copy-btn">
 
-                <button
-                    class="copy-btn"
-                    id="copyDutyBtn"
-                >
                     📋 Copy
+
                 </button>
 
             </div>
-
 
             <div class="table-wrapper">
 
@@ -584,7 +499,6 @@
 
                     </thead>
 
-
                     <tbody id="dutyTable">
                     </tbody>
 
@@ -594,19 +508,15 @@
 
         </div>
 
-
     </section>
-
 
 
     <!-- =================================================
          HISTORY
     ================================================= -->
 
-    <section
-        id="historySection"
-        class="history-section"
-    >
+    <section id="historySection"
+             class="history-section">
 
         <div class="history-header">
 
@@ -622,7 +532,6 @@
 
             </div>
 
-
             <select id="historyDate">
 
                 <option value="">
@@ -633,11 +542,8 @@
 
         </div>
 
-
-        <div
-            id="historyContent"
-            class="history-content"
-        >
+        <div id="historyContent"
+             class="history-content">
 
             <p class="history-empty">
                 Select a date to view attendance.
@@ -647,27 +553,21 @@
 
     </section>
 
-
 </main>
 
 </section>
-
 
 
 <!-- =====================================================
      TOAST
 ===================================================== -->
 
-<div
-    id="toast"
-    class="toast"
->
+<div id="toast"
+     class="toast">
 </div>
-
 
 
 <script src="script.js"></script>
 
 </body>
-
 </html>
