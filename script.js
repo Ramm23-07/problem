@@ -983,7 +983,7 @@ async function copyNames(status) {
     // =================================================
 
     const title =
-        "3rd YEAR COMPUTER SCIENCE BUSINESS SYSTEMS";
+        "III CSBS";
 
 
     let text = "";
