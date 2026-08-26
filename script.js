@@ -1,4 +1,11 @@
 // =====================================================
+// ATTENDANCE MANAGEMENT
+// III CSBS
+// DONE BY RAMMBALAJI G
+// =====================================================
+
+
+// =====================================================
 // STUDENT LIST
 // =====================================================
 
@@ -69,20 +76,28 @@ const students = [
 ];
 
 
-
 // =====================================================
-// STORAGE
+// LOCAL STORAGE KEY
 // =====================================================
 
 const STORAGE_KEY =
     "rammbalaji_attendance_history";
 
+
+// =====================================================
+// ATTENDANCE STATUS
+//
+// 0 = NOT MARKED
+// 1 = PRESENT
+// 2 = ABSENT
+// 3 = OD
+// =====================================================
+
 let attendance = {};
 
 
-
 // =====================================================
-// DOM ELEMENTS
+// GET DOM ELEMENTS
 // =====================================================
 
 const welcomePage =
@@ -122,15 +137,14 @@ const toast =
     document.getElementById("toast");
 
 
-
 // =====================================================
 // GET TODAY KEY
+// FORMAT: YYYY-MM-DD
 // =====================================================
 
 function getTodayKey() {
 
-    const date =
-        new Date();
+    const date = new Date();
 
     const year =
         date.getFullYear();
@@ -146,13 +160,14 @@ function getTodayKey() {
         ).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
-
 }
-
 
 
 // =====================================================
 // FORMAT DATE
+//
+// Example:
+// Wednesday, 26 August 2026
 // =====================================================
 
 function formatDate(dateKey) {
@@ -171,19 +186,32 @@ function formatDate(dateKey) {
             year: "numeric"
         }
     );
-
 }
 
 
-
 // =====================================================
-// COPY DATE
+// DATE FOR COPY
+//
+// Example:
+// 26/08/2026
 // =====================================================
 
-function getCopyDate() {
+function getCopyDate(dateKey = null) {
 
-    const date =
-        new Date();
+    let date;
+
+    if (dateKey) {
+
+        date =
+            new Date(
+                dateKey + "T00:00:00"
+            );
+
+    } else {
+
+        date = new Date();
+
+    }
 
     const day =
         String(
@@ -199,48 +227,7 @@ function getCopyDate() {
         date.getFullYear();
 
     return `${day}/${month}/${year}`;
-
 }
-
-
-
-// =====================================================
-// GET HISTORY
-// =====================================================
-
-function getHistory() {
-
-    try {
-
-        return JSON.parse(
-            localStorage.getItem(
-                STORAGE_KEY
-            )
-        ) || {};
-
-    } catch (error) {
-
-        return {};
-
-    }
-
-}
-
-
-
-// =====================================================
-// SAVE HISTORY
-// =====================================================
-
-function saveHistory(history) {
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(history)
-    );
-
-}
-
 
 
 // =====================================================
@@ -260,9 +247,69 @@ function createEmptyAttendance() {
     );
 
     return data;
-
 }
 
+
+// =====================================================
+// GET HISTORY
+// =====================================================
+
+function getHistory() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                STORAGE_KEY
+            );
+
+        if (!saved) {
+
+            return {};
+
+        }
+
+        return JSON.parse(saved);
+
+    } catch (error) {
+
+        console.error(
+            "Error loading history:",
+            error
+        );
+
+        return {};
+
+    }
+}
+
+
+// =====================================================
+// SAVE HISTORY
+// =====================================================
+
+function saveHistory(history) {
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(history)
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Error saving history:",
+            error
+        );
+
+        showToast(
+            "❌ Unable to save history!"
+        );
+
+    }
+}
 
 
 // =====================================================
@@ -280,20 +327,18 @@ function loadTodayAttendance() {
     if (history[today]) {
 
         return {
+            ...createEmptyAttendance(),
             ...history[today]
         };
 
     }
 
     return createEmptyAttendance();
-
 }
 
 
-
 // =====================================================
-// CLEAN HISTORY
-// KEEP LAST 7 DAYS
+// DELETE HISTORY OLDER THAN 7 DAYS
 // =====================================================
 
 function cleanOldHistory() {
@@ -340,88 +385,119 @@ function cleanOldHistory() {
     );
 
     saveHistory(history);
+}
+
+
+// =====================================================
+// START BUTTON
+// =====================================================
+
+if (startBtn) {
+
+    startBtn.addEventListener(
+        "click",
+        () => {
+
+            if (welcomePage) {
+
+                welcomePage.classList.add(
+                    "hidden"
+                );
+
+            }
+
+            if (attendancePage) {
+
+                attendancePage.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+            attendance =
+                loadTodayAttendance();
+
+            renderStudents();
+
+            renderTables();
+
+            loadHistoryDates();
+
+        }
+    );
 
 }
 
 
-
 // =====================================================
-// START ATTENDANCE
-// =====================================================
-
-startBtn.addEventListener(
-    "click",
-    () => {
-
-        welcomePage.classList.add(
-            "hidden"
-        );
-
-        attendancePage.classList.remove(
-            "hidden"
-        );
-
-        attendance =
-            loadTodayAttendance();
-
-        renderStudents();
-
-        renderTables();
-
-        loadHistoryDates();
-
-    }
-);
-
-
-
-// =====================================================
-// HOME
+// BACK BUTTON
 // =====================================================
 
-backBtn.addEventListener(
-    "click",
-    () => {
+if (backBtn) {
 
-        attendancePage.classList.add(
-            "hidden"
-        );
+    backBtn.addEventListener(
+        "click",
+        () => {
 
-        welcomePage.classList.remove(
-            "hidden"
-        );
+            if (attendancePage) {
 
-    }
-);
+                attendancePage.classList.add(
+                    "hidden"
+                );
 
+            }
+
+            if (welcomePage) {
+
+                welcomePage.classList.remove(
+                    "hidden"
+                );
+
+            }
+
+        }
+    );
+
+}
 
 
 // =====================================================
-// RELOAD
+// RELOAD BUTTON
+//
+// DOES NOT DELETE HISTORY
 // =====================================================
 
-reloadBtn.addEventListener(
-    "click",
-    () => {
+if (reloadBtn) {
 
-        window.location.reload();
+    reloadBtn.addEventListener(
+        "click",
+        () => {
 
-    }
-);
+            window.location.reload();
 
+        }
+    );
+
+}
 
 
 // =====================================================
 // TODAY DATE
 // =====================================================
 
-document.getElementById(
-    "todayDate"
-).textContent =
-    formatDate(
-        getTodayKey()
+const todayDateElement =
+    document.getElementById(
+        "todayDate"
     );
 
+if (todayDateElement) {
+
+    todayDateElement.textContent =
+        formatDate(
+            getTodayKey()
+        );
+
+}
 
 
 // =====================================================
@@ -435,7 +511,14 @@ function renderStudents(search = "") {
             "studentList"
         );
 
+    if (!list) {
+
+        return;
+
+    }
+
     list.innerHTML = "";
+
 
     const filtered =
         students.filter(
@@ -456,8 +539,10 @@ function renderStudents(search = "") {
                     "button"
                 );
 
+
             button.className =
                 "student-btn";
+
 
             button.textContent =
                 student;
@@ -467,6 +552,10 @@ function renderStudents(search = "") {
                 attendance[student] || 0;
 
 
+            // -----------------------------------------
+            // PRESENT
+            // -----------------------------------------
+
             if (status === 1) {
 
                 button.classList.add(
@@ -474,6 +563,11 @@ function renderStudents(search = "") {
                 );
 
             }
+
+
+            // -----------------------------------------
+            // ABSENT
+            // -----------------------------------------
 
             else if (status === 2) {
 
@@ -483,6 +577,11 @@ function renderStudents(search = "") {
 
             }
 
+
+            // -----------------------------------------
+            // OD
+            // -----------------------------------------
+
             else if (status === 3) {
 
                 button.classList.add(
@@ -491,6 +590,10 @@ function renderStudents(search = "") {
 
             }
 
+
+            // -----------------------------------------
+            // CLICK
+            // -----------------------------------------
 
             button.addEventListener(
                 "click",
@@ -527,15 +630,13 @@ function renderStudents(search = "") {
 }
 
 
-
 // =====================================================
 // MARK STUDENT
 //
-// 0 = NOT MARKED
-// 1 = PRESENT
-// 2 = ABSENT
-// 3 = OD
-// 4th TAP = RESET
+// CLICK 1 = PRESENT
+// CLICK 2 = ABSENT
+// CLICK 3 = OD
+// CLICK 4 = RESET
 // =====================================================
 
 function markStudent(student) {
@@ -558,13 +659,15 @@ function markStudent(student) {
 
 
     renderStudents(
-        searchInput.value
+        searchInput
+            ? searchInput.value
+            : ""
     );
+
 
     renderTables();
 
 }
-
 
 
 // =====================================================
@@ -579,7 +682,6 @@ function getStudentsByStatus(status) {
     );
 
 }
-
 
 
 // =====================================================
@@ -614,49 +716,73 @@ function renderTables() {
     );
 
 
-    document.getElementById(
-        "totalCount"
-    ).textContent =
-        students.length;
+    // -----------------------------------------
+    // MAIN COUNTS
+    // -----------------------------------------
+
+    setText(
+        "totalCount",
+        students.length
+    );
+
+    setText(
+        "presentCount",
+        present.length
+    );
+
+    setText(
+        "absentCount",
+        absent.length
+    );
+
+    setText(
+        "dutyCount",
+        duty.length
+    );
 
 
-    document.getElementById(
-        "presentCount"
-    ).textContent =
-        present.length;
+    // -----------------------------------------
+    // TABLE COUNTS
+    // -----------------------------------------
 
+    setText(
+        "presentTableCount",
+        present.length
+    );
 
-    document.getElementById(
-        "absentCount"
-    ).textContent =
-        absent.length;
+    setText(
+        "absentTableCount",
+        absent.length
+    );
 
-
-    document.getElementById(
-        "dutyCount"
-    ).textContent =
-        duty.length;
-
-
-    document.getElementById(
-        "presentTableCount"
-    ).textContent =
-        present.length;
-
-
-    document.getElementById(
-        "absentTableCount"
-    ).textContent =
-        absent.length;
-
-
-    document.getElementById(
-        "dutyTableCount"
-    ).textContent =
-        duty.length;
+    setText(
+        "dutyTableCount",
+        duty.length
+    );
 
 }
 
+
+// =====================================================
+// SAFE TEXT SETTER
+// =====================================================
+
+function setText(
+    id,
+    value
+) {
+
+    const element =
+        document.getElementById(id);
+
+    if (element) {
+
+        element.textContent =
+            value;
+
+    }
+
+}
 
 
 // =====================================================
@@ -672,6 +798,14 @@ function fillTable(
         document.getElementById(
             tableId
         );
+
+
+    if (!table) {
+
+        return;
+
+    }
+
 
     table.innerHTML = "";
 
@@ -701,188 +835,224 @@ function fillTable(
 }
 
 
-
 // =====================================================
 // SAVE ATTENDANCE
+//
+// UNMARKED STUDENTS
+// AUTOMATICALLY BECOME ABSENT
 // =====================================================
 
-saveBtn.addEventListener(
-    "click",
-    () => {
+if (saveBtn) {
 
-        const unmarked =
-            students.filter(
-                student =>
-                    attendance[student] === 0
-            );
+    saveBtn.addEventListener(
+        "click",
+        () => {
 
-
-        if (
-            unmarked.length > 0
-        ) {
-
-            const confirmSave =
-                confirm(
-                    `${unmarked.length} student(s) are not marked.\n\nThey will automatically be marked as ABSENT.\n\nDo you want to continue?`
+            const unmarked =
+                students.filter(
+                    student =>
+                        attendance[student] === 0
                 );
 
 
-            if (!confirmSave) {
+            if (
+                unmarked.length > 0
+            ) {
+
+                const confirmSave =
+                    confirm(
+                        `${unmarked.length} student(s) are not marked.\n\nThey will automatically be marked as ABSENT.\n\nDo you want to continue?`
+                    );
+
+
+                if (!confirmSave) {
+
+                    return;
+
+                }
+
+            }
+
+
+            // -----------------------------------------
+            // AUTO ABSENT
+            // -----------------------------------------
+
+            students.forEach(
+                student => {
+
+                    if (
+                        attendance[student] === 0
+                    ) {
+
+                        attendance[student] = 2;
+
+                    }
+
+                }
+            );
+
+
+            // -----------------------------------------
+            // SAVE TO HISTORY
+            // -----------------------------------------
+
+            const history =
+                getHistory();
+
+            const today =
+                getTodayKey();
+
+
+            history[today] = {
+                ...attendance
+            };
+
+
+            saveHistory(history);
+
+
+            // -----------------------------------------
+            // REFRESH
+            // -----------------------------------------
+
+            renderStudents(
+                searchInput
+                    ? searchInput.value
+                    : ""
+            );
+
+            renderTables();
+
+            loadHistoryDates();
+
+
+            if (historyDate) {
+
+                historyDate.value =
+                    today;
+
+            }
+
+
+            showHistory(today);
+
+
+            showToast(
+                "✅ Attendance saved successfully!"
+            );
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// RESET BUTTON
+// =====================================================
+
+if (resetBtn) {
+
+    resetBtn.addEventListener(
+        "click",
+        () => {
+
+            const confirmReset =
+                confirm(
+                    "Are you sure you want to reset today's attendance?"
+                );
+
+
+            if (!confirmReset) {
 
                 return;
 
             }
 
-        }
+
+            // -----------------------------------------
+            // RESET CURRENT ATTENDANCE
+            // -----------------------------------------
+
+            attendance =
+                createEmptyAttendance();
 
 
-        // Automatically mark
-        // unselected students absent
+            // -----------------------------------------
+            // DELETE TODAY HISTORY
+            // -----------------------------------------
 
-        students.forEach(
-            student => {
+            const history =
+                getHistory();
 
-                if (
-                    attendance[student] === 0
-                ) {
-
-                    attendance[student] = 2;
-
-                }
-
-            }
-        );
+            const today =
+                getTodayKey();
 
 
-        const history =
-            getHistory();
-
-        const today =
-            getTodayKey();
+            delete history[today];
 
 
-        history[today] = {
-            ...attendance
-        };
+            saveHistory(history);
 
 
-        saveHistory(history);
+            // -----------------------------------------
+            // REFRESH
+            // -----------------------------------------
 
-
-        renderStudents(
-            searchInput.value
-        );
-
-        renderTables();
-
-        loadHistoryDates();
-
-
-        historyDate.value =
-            today;
-
-
-        showHistory(today);
-
-
-        showToast(
-            "✅ Attendance saved successfully!"
-        );
-
-    }
-);
-
-
-
-// =====================================================
-// RESET TODAY
-// =====================================================
-
-resetBtn.addEventListener(
-    "click",
-    () => {
-
-        const confirmReset =
-            confirm(
-                "Are you sure you want to reset today's attendance?"
+            renderStudents(
+                searchInput
+                    ? searchInput.value
+                    : ""
             );
 
+            renderTables();
 
-        if (!confirmReset) {
+            loadHistoryDates();
 
-            return;
+
+            if (historyDate) {
+
+                historyDate.value = "";
+
+            }
+
+
+            showHistory("");
+
+
+            showToast(
+                "🔄 Today's attendance has been reset."
+            );
 
         }
+    );
 
-
-        attendance =
-            createEmptyAttendance();
-
-
-        const history =
-            getHistory();
-
-        const today =
-            getTodayKey();
-
-
-        delete history[today];
-
-
-        saveHistory(history);
-
-
-        renderStudents(
-            searchInput.value
-        );
-
-        renderTables();
-
-        loadHistoryDates();
-
-
-        historyDate.value = "";
-
-        showHistory("");
-
-
-        showToast(
-            "🔄 Today's attendance has been reset."
-        );
-
-    }
-);
-
+}
 
 
 // =====================================================
 // SEARCH
 // =====================================================
 
-searchInput.addEventListener(
-    "input",
-    () => {
+if (searchInput) {
 
-        renderStudents(
-            searchInput.value
-        );
+    searchInput.addEventListener(
+        "input",
+        () => {
 
-    }
-);
+            renderStudents(
+                searchInput.value
+            );
 
+        }
+    );
+
+}
 
 
 // =====================================================
-// COPY INDIVIDUAL ATTENDANCE
-//
-// PRESENT:
-// PRESENT-count
-//
-// ABSENT:
-// ABSENT-count
-//
-// OD:
-// OD-count
+// COPY PRESENT / ABSENT / OD
 // =====================================================
 
 async function copyNames(status) {
@@ -896,6 +1066,7 @@ async function copyNames(status) {
     const duty =
         getStudentsByStatus(3);
 
+
     const date =
         getCopyDate();
 
@@ -903,44 +1074,20 @@ async function copyNames(status) {
     let text = "";
 
 
-
-    // =================================================
-    // ABSENT
-    // =================================================
-
-    if (status === 2) {
-
-        text =
-`${date}
-
-ABSENT-${absent.length}`;
-
-
-        if (absent.length > 0) {
-
-            text +=
-                "\n" +
-                absent.join("\n");
-
-        }
-
-    }
-
-
-
-    // =================================================
+    // -----------------------------------------
     // PRESENT
-    // =================================================
+    // -----------------------------------------
 
-    else if (status === 1) {
+    if (status === 1) {
 
         text =
 `${date}
+Present - ${present.length}`;
 
-PRESENT-${present.length}`;
 
-
-        if (present.length > 0) {
+        if (
+            present.length > 0
+        ) {
 
             text +=
                 "\n" +
@@ -951,20 +1098,44 @@ PRESENT-${present.length}`;
     }
 
 
+    // -----------------------------------------
+    // ABSENT
+    // -----------------------------------------
 
-    // =================================================
+    else if (status === 2) {
+
+        text =
+`${date}
+Absent - ${absent.length}`;
+
+
+        if (
+            absent.length > 0
+        ) {
+
+            text +=
+                "\n" +
+                absent.join("\n");
+
+        }
+
+    }
+
+
+    // -----------------------------------------
     // OD
-    // =================================================
+    // -----------------------------------------
 
     else if (status === 3) {
 
         text =
 `${date}
+OD - ${duty.length}`;
 
-OD-${duty.length}`;
 
-
-        if (duty.length > 0) {
+        if (
+            duty.length > 0
+        ) {
 
             text +=
                 "\n" +
@@ -983,18 +1154,26 @@ OD-${duty.length}`;
 }
 
 
-
 // =====================================================
 // COPY ALL ATTENDANCE
 //
-// IMPORTANT:
+// FINAL FORMAT:
 //
-// COPY ALL = ABSENT + OD ONLY
+// 26/08/2026
+// III CSBS
+//
+// Absent - 5
+// Student 1
+// Student 2
+//
+// OD - 2
+// Student 3
+// Student 4
 //
 // PRESENT IS NOT INCLUDED.
 //
-// IF OD = 0,
-// OD SECTION WILL NOT BE COPIED.
+// IF THERE IS NO OD,
+// OD SECTION IS NOT INCLUDED.
 // =====================================================
 
 async function copyAllAttendance() {
@@ -1002,24 +1181,34 @@ async function copyAllAttendance() {
     const absent =
         getStudentsByStatus(2);
 
+
     const duty =
         getStudentsByStatus(3);
+
 
     const date =
         getCopyDate();
 
 
-    // =================================================
-    // ABSENT
-    // =================================================
+    // -----------------------------------------
+    // DATE FIRST
+    // III CSBS NEXT LINE
+    // -----------------------------------------
 
     let text =
 `${date}
+III CSBS
 
-ABSENT-${absent.length}`;
+Absent - ${absent.length}`;
 
 
-    if (absent.length > 0) {
+    // -----------------------------------------
+    // ABSENT NAMES
+    // -----------------------------------------
+
+    if (
+        absent.length > 0
+    ) {
 
         text +=
             "\n" +
@@ -1028,34 +1217,41 @@ ABSENT-${absent.length}`;
     }
 
 
-
-    // =================================================
+    // -----------------------------------------
     // OD
-    // ONLY IF OD STUDENTS EXIST
-    // =================================================
+    //
+    // ADD ONLY IF OD EXISTS
+    // -----------------------------------------
 
-    if (duty.length > 0) {
+    if (
+        duty.length > 0
+    ) {
 
         text +=
 `
 
-OD-${duty.length}
+OD - ${duty.length}
 ${duty.join("\n")}`;
 
     }
 
 
+    // -----------------------------------------
+    // COPY
+    // -----------------------------------------
+
     await copyToClipboard(
         text,
-        "📋 Absent and OD copied!"
+        "📋 Attendance copied!"
     );
 
 }
 
 
-
 // =====================================================
 // CLIPBOARD FUNCTION
+//
+// WORKS ON DESKTOP + MOBILE
 // =====================================================
 
 async function copyToClipboard(
@@ -1065,74 +1261,76 @@ async function copyToClipboard(
 
     try {
 
-        await navigator.clipboard.writeText(
-            text
-        );
+        if (
+            navigator.clipboard &&
+            window.isSecureContext
+        ) {
 
-        showToast(
-            successMessage
-        );
+            await navigator.clipboard.writeText(
+                text
+            );
 
-    }
+        }
 
-    catch (error) {
+        else {
 
-        const textarea =
-            document.createElement(
-                "textarea"
+            const textarea =
+                document.createElement(
+                    "textarea"
+                );
+
+
+            textarea.value =
+                text;
+
+
+            textarea.style.position =
+                "fixed";
+
+            textarea.style.left =
+                "-9999px";
+
+            textarea.style.top =
+                "0";
+
+
+            document.body.appendChild(
+                textarea
             );
 
 
-        textarea.value =
-            text;
+            textarea.focus();
 
+            textarea.select();
 
-        textarea.style.position =
-            "fixed";
-
-
-        textarea.style.left =
-            "-9999px";
-
-
-        textarea.style.top =
-            "0";
-
-
-        document.body.appendChild(
-            textarea
-        );
-
-
-        textarea.focus();
-
-        textarea.select();
-
-
-        try {
 
             document.execCommand(
                 "copy"
             );
 
 
-            showToast(
-                successMessage
-            );
-
-        }
-
-        catch (copyError) {
-
-            showToast(
-                "❌ Copy failed!"
+            document.body.removeChild(
+                textarea
             );
 
         }
 
 
-        document.body.removeChild(
-            textarea
+        showToast(
+            successMessage
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Clipboard error:",
+            error
+        );
+
+
+        showToast(
+            "❌ Unable to copy!"
         );
 
     }
@@ -1140,73 +1338,96 @@ async function copyToClipboard(
 }
 
 
-
 // =====================================================
-// COPY PRESENT
-// =====================================================
-
-document.getElementById(
-    "copyPresentBtn"
-).addEventListener(
-    "click",
-    () => {
-
-        copyNames(1);
-
-    }
-);
-
-
-
-// =====================================================
-// COPY ABSENT
+// COPY PRESENT BUTTON
 // =====================================================
 
-document.getElementById(
-    "copyAbsentBtn"
-).addEventListener(
-    "click",
-    () => {
+const copyPresentBtn =
+    document.getElementById(
+        "copyPresentBtn"
+    );
 
-        copyNames(2);
+if (copyPresentBtn) {
 
-    }
-);
+    copyPresentBtn.addEventListener(
+        "click",
+        () => {
 
+            copyNames(1);
+
+        }
+    );
+
+}
 
 
 // =====================================================
-// COPY OD
+// COPY ABSENT BUTTON
 // =====================================================
 
-document.getElementById(
-    "copyDutyBtn"
-).addEventListener(
-    "click",
-    () => {
+const copyAbsentBtn =
+    document.getElementById(
+        "copyAbsentBtn"
+    );
 
-        copyNames(3);
+if (copyAbsentBtn) {
 
-    }
-);
+    copyAbsentBtn.addEventListener(
+        "click",
+        () => {
 
+            copyNames(2);
+
+        }
+    );
+
+}
 
 
 // =====================================================
-// COPY ALL
+// COPY OD BUTTON
 // =====================================================
 
-document.getElementById(
-    "copyAllBtn"
-).addEventListener(
-    "click",
-    () => {
+const copyDutyBtn =
+    document.getElementById(
+        "copyDutyBtn"
+    );
 
-        copyAllAttendance();
+if (copyDutyBtn) {
 
-    }
-);
+    copyDutyBtn.addEventListener(
+        "click",
+        () => {
 
+            copyNames(3);
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// COPY ALL BUTTON
+// =====================================================
+
+const copyAllBtn =
+    document.getElementById(
+        "copyAllBtn"
+    );
+
+if (copyAllBtn) {
+
+    copyAllBtn.addEventListener(
+        "click",
+        () => {
+
+            copyAllAttendance();
+
+        }
+    );
+
+}
 
 
 // =====================================================
@@ -1214,6 +1435,13 @@ document.getElementById(
 // =====================================================
 
 function loadHistoryDates() {
+
+    if (!historyDate) {
+
+        return;
+
+    }
+
 
     const history =
         getHistory();
@@ -1263,7 +1491,6 @@ function loadHistoryDates() {
 }
 
 
-
 // =====================================================
 // SHOW HISTORY
 // =====================================================
@@ -1278,6 +1505,13 @@ function showHistory(dateKey) {
         document.getElementById(
             "historyContent"
         );
+
+
+    if (!content) {
+
+        return;
+
+    }
 
 
     if (
@@ -1354,9 +1588,7 @@ function showHistory(dateKey) {
 
         <br>
 
-
         <div class="history-summary">
-
 
             <div class="history-box history-present">
 
@@ -1396,12 +1628,10 @@ function showHistory(dateKey) {
 
             </div>
 
-
         </div>
 
 
         <table class="history-table">
-
 
             <thead>
 
@@ -1443,7 +1673,6 @@ function showHistory(dateKey) {
 
             </tbody>
 
-
         </table>
 
     `;
@@ -1451,9 +1680,8 @@ function showHistory(dateKey) {
 }
 
 
-
 // =====================================================
-// HISTORY ROWS
+// CREATE HISTORY ROWS
 // =====================================================
 
 function createHistoryRows(
@@ -1490,39 +1718,48 @@ function createHistoryRows(
 }
 
 
-
 // =====================================================
 // HISTORY DATE CHANGE
 // =====================================================
 
-historyDate.addEventListener(
-    "change",
-    () => {
+if (historyDate) {
 
-        showHistory(
-            historyDate.value
-        );
+    historyDate.addEventListener(
+        "change",
+        () => {
 
-    }
-);
+            showHistory(
+                historyDate.value
+            );
 
+        }
+    );
+
+}
 
 
 // =====================================================
 // HISTORY BUTTON
 // =====================================================
 
-historyBtn.addEventListener(
-    "click",
-    () => {
+if (historyBtn) {
 
-        historySection.scrollIntoView({
-            behavior: "smooth"
-        });
+    historyBtn.addEventListener(
+        "click",
+        () => {
 
-    }
-);
+            if (historySection) {
 
+                historySection.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+            }
+
+        }
+    );
+
+}
 
 
 // =====================================================
@@ -1530,6 +1767,13 @@ historyBtn.addEventListener(
 // =====================================================
 
 function showToast(message) {
+
+    if (!toast) {
+
+        return;
+
+    }
+
 
     toast.textContent =
         message;
@@ -1552,7 +1796,6 @@ function showToast(message) {
     );
 
 }
-
 
 
 // =====================================================
